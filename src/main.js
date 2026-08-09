@@ -1,60 +1,158 @@
 import './style.css'
-import javascriptLogo from './assets/javascript.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import { setupCounter } from './counter.js'
+
+document.body.classList.add('invitation-locked')
 
 document.querySelector('#app').innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${javascriptLogo}" class="framework" alt="JavaScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.js</code> and save to test <code>HMR</code></p>
-  </div>
-  <button id="counter" type="button" class="counter"></button>
-</section>
+  <section class="opening-screen">
 
-<div class="ticks"></div>
+    <div class="monogram">
+      <span>J</span>
+      <small>&</small>
+      <span>C</span>
+    </div>
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-          <img class="button-icon" src="${javascriptLogo}" alt="">
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
+    <div class="botanical botanical-left">
 
-<div class="ticks"></div>
-<section id="spacer"></section>
+      <span class="stem stem-1"></span>
+      <span class="stem stem-2"></span>
+
+      <span class="leaf leaf-1"></span>
+      <span class="leaf leaf-2"></span>
+      <span class="leaf leaf-3"></span>
+      <span class="leaf leaf-4"></span>
+
+      <span class="flower flower-1"></span>
+      <span class="flower flower-2"></span>
+
+    </div>
+
+
+    <div class="botanical botanical-right">
+
+      <span class="stem stem-1"></span>
+      <span class="stem stem-2"></span>
+
+      <span class="leaf leaf-1"></span>
+      <span class="leaf leaf-2"></span>
+      <span class="leaf leaf-3"></span>
+      <span class="leaf leaf-4"></span>
+
+      <span class="flower flower-1"></span>
+      <span class="flower flower-2"></span>
+
+    </div>
+
+    <div class="envelope-wrapper">
+
+      <div class="envelope">
+
+        <!-- CUERPO DEL SOBRE -->
+        <div class="envelope-back"></div>
+
+        <!-- SOLAPAS INFERIORES -->
+        <div class="envelope-left"></div>
+        <div class="envelope-right"></div>
+
+        <!-- CONTENIDO DE LA SOLAPA SUPERIOR -->
+        <div class="envelope-flap">
+
+          <div class="flap-text">
+            <span>ESTÁS INVITADO A</span>
+            <span>ALGO MUY ESPECIAL</span>
+          </div>
+
+          <div class="wax-seal">
+            <strong>J</strong>
+            <span>&</span>
+            <strong>C</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="couple-names">
+      <h1>Carolina & Juan</h1>
+
+      <div class="date">
+        <span>24</span>
+        <i>•</i>
+        <span>10</span>
+        <i>•</i>
+        <span>2026</span>
+      </div>
+    </div>
+
+    <button class="open-button">
+      Abrir invitación
+    </button>
+
+    <p class="opening-message">
+      Una historia que comienza contigo
+    </p>
+
+  </section>
+
+  <section class="hero-section">
+    <div class="hero-content">
+
+      <p class="hero-kicker">
+        Nuestra historia
+      </p>
+
+      <h1>
+        Carolina <span>&</span> Juan
+      </h1>
+
+      <div class="hero-photo-frame">
+        <img
+          src="/src/assets/hero-couple.jpg"
+          alt="Carolina y Juan"
+        >
+      </div>
+
+      <p class="hero-date">
+        24 · OCTUBRE · 2026
+      </p>
+
+      <p class="hero-message">
+        Una historia que comienza contigo
+      </p>
+
+      <div class="hero-scroll">
+        <span></span>
+      </div>
+
+    </div>
+
+  </section>
+
 `
 
-setupCounter(document.querySelector('#counter'))
+const envelope = document.querySelector('.envelope')
+const envelopeWrapper = document.querySelector('.envelope-wrapper')
+const openButton = document.querySelector('.open-button')
+const waxSeal = document.querySelector('.wax-seal')
+
+function openInvitation() {
+  const openingScreen = document.querySelector('.opening-screen')
+
+  openingScreen.classList.add('is-opening')
+  envelope.classList.add('is-open')
+  envelopeWrapper.classList.add('is-open')
+  openButton.classList.add('is-hidden')
+
+  setTimeout(() => {
+    document.body.classList.remove('invitation-locked')
+    document.body.classList.add('invitation-open')
+
+    document.querySelector('.hero-section').scrollIntoView({
+      behavior: 'smooth'
+    })
+  }, 900)
+}
+
+openButton.addEventListener('click', openInvitation)
+waxSeal.addEventListener('click', openInvitation)
