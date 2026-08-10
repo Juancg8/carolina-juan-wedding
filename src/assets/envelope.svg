@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 620" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&amp;family=Cinzel:wght@600&amp;display=swap');
+      .serif-wax { font-family: 'Cormorant Garamond', 'Georgia', serif; }
+      .cinzel-flap { font-family: 'Cinzel', 'Georgia', serif; }
+    </style>
+
+    <!-- Textura y Gradiente de Papel -->
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFDF8"/>
+      <stop offset="100%" stop-color="#F2E9D7"/>
+    </linearGradient>
+
+    <linearGradient id="flapGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F6EDE0"/>
+    </linearGradient>
+
+    <!-- Sombras del Sobre -->
+    <filter id="envelopeShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#281E15" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#281E15" flood-opacity="0.08"/>
+    </filter>
+
+    <!-- Sombra 3D Profunda para el Sello de Cera -->
+    <filter id="waxShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#2D0F03" flood-opacity="0.38"/>
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#2D0F03" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Gradiente del Sello de Cera Terracota -->
+    <radialGradient id="waxBase" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#E5753E"/>
+      <stop offset="40%" stop-color="#C75122"/>
+      <stop offset="80%" stop-color="#93300C"/>
+      <stop offset="100%" stop-color="#6E1F03"/>
+    </radialGradient>
+
+    <!-- Brillo superior del sello (Efecto plastificado/cera) -->
+    <radialGradient id="waxHighlight" cx="30%" cy="22%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.45"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Gradiente Dorado para adornos -->
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#B8934A"/>
+      <stop offset="50%" stop-color="#E5C789"/>
+      <stop offset="100%" stop-color="#B8934A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ================= SOBRE COMPLETO ================= -->
+  <g transform="translate(40, 30)" filter="url(#envelopeShadow)">
+
+    <!-- Cuerpos/Rectángulo Principal -->
+    <rect x="0" y="0" width="720" height="460" rx="6" fill="url(#paperGrad)" stroke="#E2D7C5" stroke-width="2"/>
+
+    <!-- Solapa Inferior (Triángulo) -->
+    <path d="M 0 460 L 360 230 L 720 460 Z" fill="#EFE5D3" stroke="#E2D7C5" stroke-width="1"/>
+
+    <!-- Solapas Laterales -->
+    <path d="M 0 0 L 280 230 L 0 460 Z" fill="#EAE0CD" opacity="0.6"/>
+    <path d="M 720 0 L 440 230 L 720 460 Z" fill="#E5DAC5" opacity="0.5"/>
+
+    <!-- Líneas de Pliegue -->
+    <path d="M 0 460 L 360 230 L 720 460" fill="none" stroke="#D5C8B3" stroke-width="1.5" opacity="0.8"/>
+
+    <!-- ================= SOLAPA SUPERIOR (ABIERTA / PLEGADA HACIA ABAJO) ================= -->
+    <g id="topFlapGroup">
+      <!-- Sombra proyectada por la solapa -->
+      <path d="M 0 0 L 720 0 L 360 324 Z" fill="#1C140C" opacity="0.10"/>
+
+      <!-- Cuerpo de la Solapa -->
+      <path d="M 0 0 L 720 0 L 360 318 Z" fill="url(#flapGrad)" stroke="#DFD4C2" stroke-width="2"/>
+
+      <!-- Pliegue decorativo interno -->
+      <path d="M 0 0 L 360 318 L 720 0" fill="none" stroke="#EBE0CF" stroke-width="1.2"/>
+
+      <!-- Texto dentro de la Solapa -->
+      <g class="cinzel-flap" text-anchor="middle" fill="#1B3245">
+        <text x="360" y="105" font-size="22" letter-spacing="5" font-weight="600">ESTÁS INVITADO A</text>
+        <text x="360" y="148" font-size="22" letter-spacing="5" font-weight="600">ALGO MUY ESPECIAL</text>
+      </g>
+
+      <!-- Divisor Dorado en la Solapa -->
+      <g transform="translate(360, 185)">
+        <line x1="-95" y1="0" x2="-28" y2="0" stroke="url(#goldGrad)" stroke-width="1.2"/>
+        <circle cx="-28" cy="0" r="2.5" fill="#B38E46"/>
+        <g fill="#B38E46">
+          <path d="M 0 -10 C 5 -5 5 5 0 10 C -5 5 -5 -5 0 -10 Z"/>
+          <path d="M -10 -5 C -5 -2 -5 2 -10 5 C -12 2 -12 -2 -10 -5 Z"/>
+          <path d="M 10 -5 C 5 -2 5 2 10 5 C 12 2 12 -2 10 -5 Z"/>
+        </g>
+        <circle cx="28" cy="0" r="2.5" fill="#B38E46"/>
+        <line x1="28" y1="0" x2="95" y2="0" stroke="url(#goldGrad)" stroke-width="1.2"/>
+      </g>
+
+      <!-- ================= SELLO DE CERA AL DETALLE ================= -->
+      <g transform="translate(360, 318)" filter="url(#waxShadow)">
+        
+        <!-- Borde Irregular Orgánico de Cera Derretida -->
+        <path d="
+          M -8 -58 
+          C 20 -62, 50 -52, 58 -28 
+          C 68 -2, 60 32, 48 50 
+          C 30 68, -12 65, -36 54 
+          C -58 44, -66 14, -60 -16 
+          C -55 -40, -32 -54, -8 -58 Z" 
+          fill="url(#waxBase)"
+        />
+
+        <!-- Capa Secundaria de Relieve de Cera -->
+        <path d="
+          M -4 -50 
+          C 16 -53, 42 -43, 48 -22 
+          C 55 -2, 48 26, 38 41 
+          C 24 54, -8 52, -28 44 
+          C -45 36, -51 12, -47 -12 
+          C -43 -32, -24 -47, -4 -50 Z" 
+          fill="none" 
+          stroke="#7A2204" 
+          stroke-width="2" 
+          opacity="0.4"
+        />
+
+        <!-- Anillos Estampados del Sello -->
+        <circle cx="0" cy="0" r="43" fill="none" stroke="#D66438" stroke-width="2.5" opacity="0.6"/>
+        <circle cx="0" cy="0" r="39" fill="none" stroke="#5E1802" stroke-width="1.8" opacity="0.75"/>
+        <circle cx="0" cy="0" r="37" fill="none" stroke="#FDECD2" stroke-width="0.8" opacity="0.3"/>
+
+        <!-- Brillo de Luz en la Cera -->
+        <path d="
+          M -8 -58 
+          C 20 -62, 50 -52, 58 -28 
+          C 68 -2, 60 32, 48 50 Z" 
+          fill="url(#waxHighlight)"
+        />
+
+        <!-- Sombra Interna del Grabado -->
+        <text x="1" y="10" class="serif-wax" text-anchor="middle" font-size="28" font-weight="700" fill="#421001" opacity="0.6" letter-spacing="1">J&amp;C</text>
+        
+        <!-- Monograma "J&C" Principal Grabado -->
+        <text x="0" y="9" class="serif-wax" text-anchor="middle" font-size="28" font-weight="700" fill="#FDECD2" opacity="0.95" letter-spacing="1">J&amp;C</text>
+
+        <!-- Guirnalda de Hojas Grabada dentro del Sello -->
+        <!-- Sombra de la guirnalda -->
+        <path d="M -20 19 Q 0 27 20 19" fill="none" stroke="#421001" stroke-width="1.5" opacity="0.5"/>
+        <!-- Guirnalda dorada/crema -->
+        <path d="M -20 18 Q 0 26 20 18" fill="none" stroke="#FDECD2" stroke-width="1.5" opacity="0.9"/>
+        
+        <!-- Hojas de la guirnalda -->
+        <g fill="#FDECD2" opacity="0.9">
+          <path d="M -14 20 C -16 18 -18 19 -17 21 Z"/>
+          <path d="M -7 22 C -8 20 -10 21 -9 23 Z"/>
+          <path d="M 0 23 C -1 21 1 21 0 24 Z"/>
+          <path d="M 7 22 C 8 20 10 21 9 23 Z"/>
+          <path d="M 14 20 C 16 18 18 19 17 21 Z"/>
+        </g>
+      </g>
+    </g>
+
+  </g>
+</svg>
