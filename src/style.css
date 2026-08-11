@@ -6,33 +6,26 @@
    ========================================================= */
 
 :root {
-  /* Fondos suaves y cálidos */
-  --ivory: #ECE8D9;          /* Tono lino/marfil de fondo */
-  --paper: #F5F2E9;          /* Papel de textura suave */
-  --paper-light: #FAF8F3;    /* Solapa con brillo fino */
+  --ivory: #ECE8D9;          
+  --paper: #F5F2E9;          
+  --paper-light: #FAF8F3;    
 
-  /* Azules profundos */
-  --navy: #152A3A;           /* Azul noche muy elegante */
-  --navy-soft: #304858;      /* Para subtítulos y fechas */
+  --navy: #152A3A;           
+  --navy-soft: #304858;      
 
-  /* Terracota / Rust (Fuego/Cera) */
-  --rust: #C34A1C;           /* Terracota principal */
-  --terracotta: #D86A2E;     /* Naranja terracota cálido */
+  --rust: #C34A1C;           
+  --terracotta: #D86A2E;     
 
-  /* Botánicos (Eucalipto / Sage) */
-  --sage: #778B78;           /* Verde sabio de las hojas */
-  --green-dark: #374A3D;     /* Verde bosque oscuro */
+  --sage: #778B78;           
+  --green-dark: #374A3D;     
 
-  /* Neutros y Acabados */
   --beige: #B9B09B;
   --text: #26303B;
-  --gold: #BD9855;           /* Dorado antiguo */
+  --gold: #BD9855;           
 
-  /* Sombras */
   --shadow-envelope: 0 24px 45px rgba(21, 42, 58, 0.16);
   --shadow-seal: 0 8px 14px rgba(21, 42, 58, 0.22);
 }
-
 
 /* =========================================================
    RESET BASE
@@ -50,15 +43,32 @@ html {
   scroll-behavior: smooth;
 }
 
+/* PEGA ESTE NUEVO BLOQUE: */
+
 body {
   margin: 0;
   padding: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: var(--ivory);
+  background-color: var(--ivory);
   color: var(--text);
   font-family: 'Manrope', sans-serif;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Pseudo-elemento para controlar la transparencia al 50% */
+body.invitation-open::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url('/src/assets/fondo.png');
+  background-repeat: repeat;
+  background-position: center top;
+  background-size: cover;
+  opacity: 0.4; /* Aquí controlas la transparencia (50%) */
+  pointer-events: none;
 }
 
 button {
@@ -70,9 +80,8 @@ img {
   max-width: 100%;
 }
 
-
 /* =========================================================
-   PANTALLA DE APERTURA CON FONDO TEXTURIZADO Y BOTÁNICO
+   PANTALLA DE APERTURA (PORTADA SOBRE)
    ========================================================= */
 
 .opening-screen {
@@ -83,21 +92,10 @@ img {
   align-items: center;
   padding: clamp(34px, 6vh, 70px) 24px 50px;
   overflow: hidden;
-  
-  /* Fondo Base + Patrón Orgánico de Hojas/Flores estilo Toile/Porcelain sutil */
   background-color: var(--ivory);
-  background-image: 
-    radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.55), transparent 60%),
-    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%3C%23152A3A' fill-opacity='0.035'%3E%3Cpath d='M0 0c20 0 40 20 40 40S20 80 0 80s40-20 40-40S20 0 0 0zm80 0c-20 0-40 20-40 40s20 40 40 40-40-20-40-40 20-40 40-40z'/%3E%3C/g%3E%3C/svg%3E");
-  
   isolation: isolate;
-  transition: opacity 0.9s ease, transform 0.9s ease;
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
-
-
-/* =========================================================
-   MONOGRAMA
-   ========================================================= */
 
 .monogram {
   position: relative;
@@ -121,50 +119,31 @@ img {
   letter-spacing: 0;
 }
 
-
 /* =========================================================
-   MARCOS FLORALES BOTÁNICOS (ESQUINAS)
+   IMÁGENES PNG BOTÁNICAS (PORTADA)
    ========================================================= */
 
-.botanical {
+.botanical-png {
   position: absolute;
   z-index: 2;
-  width: clamp(240px, 30vw, 400px);
-  height: clamp(340px, 40vw, 520px);
+  width: clamp(280px, 35vw, 460px);
+  height: auto;
   pointer-events: none;
+  filter: drop-shadow(0 10px 20px rgba(21, 42, 58, 0.12));
   transition: transform 0.6s ease, opacity 0.6s ease;
-  filter: drop-shadow(0 12px 20px rgba(21, 42, 58, 0.12));
 }
 
-.botanical-left {
-  left: -30px;
-  bottom: 0%;
-  transform: rotate(-2deg);
+.botanical-png-left {
+  left: 0;
+  bottom: 0;
+  transform: translate(-10%, 10%);
 }
 
-.botanical-right {
-  right: -30px;
-  top: 1%;
-  transform: rotate(2deg);
+.botanical-png-right {
+  right: 0;
+  top: 0;
+  transform: translate(10%, -10%);
 }
-
-/* Sombras y profundidad al sobre */
-.envelope-wrapper {
-  position: relative;
-  z-index: 10;
-  width: min(540px, 86vw);
-  margin-top: clamp(20px, 4vh, 40px);
-  display: flex;
-  justify-content: center;
-  perspective: 1400px;
-}
-
-.botanical svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
 
 /* =========================================================
    ESTRUCTURA DEL SOBRE
@@ -189,7 +168,6 @@ img {
   transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.4s ease;
 }
 
-/* Reacción al pasar el mouse (efecto táctil) */
 .envelope:hover {
   transform: translateY(-6px) scale(1.01);
   filter: drop-shadow(0 28px 36px rgba(21, 42, 58, 0.22));
@@ -199,7 +177,6 @@ img {
   transform: translateY(-2px) scale(0.995);
 }
 
-/* SVG PRINCIPAL */
 .envelope-svg {
   position: absolute;
   inset: 0;
@@ -216,10 +193,7 @@ img {
   transition: transform 1s cubic-bezier(.77, 0, .18, 1);
 }
 
-
-/* =========================================================
-   ANIMACIÓN AL ABRIR
-   ========================================================= */
+/* ANIMACIONES PORTADA */
 
 .envelope.is-open .envelope-flap-svg {
   transform: rotateX(180deg);
@@ -227,13 +201,12 @@ img {
 
 .opening-screen.is-opening {
   opacity: 0;
-  transform: scale(1.015);
+  transform: scale(0.98);
   pointer-events: none;
 }
 
-
 /* =========================================================
-   NOMBRES Y FECHA
+   NOMBRES, FECHA Y BOTÓN
    ========================================================= */
 
 .couple-names {
@@ -271,11 +244,6 @@ img {
   font-size: 9px;
 }
 
-
-/* =========================================================
-   BOTÓN
-   ========================================================= */
-
 .open-button {
   position: relative;
   z-index: 30;
@@ -304,11 +272,6 @@ img {
   pointer-events: none;
 }
 
-
-/* =========================================================
-   MENSAJE
-   ========================================================= */
-
 .opening-message {
   position: relative;
   z-index: 20;
@@ -319,7 +282,6 @@ img {
   font-style: italic;
   letter-spacing: 1px;
 }
-
 
 /* =========================================================
    PÁGINA PRINCIPAL / HERO
@@ -332,7 +294,7 @@ img {
   align-items: center;
   justify-content: center;
   padding: 80px 24px;
-  background: var(--ivory);
+  background: transparent; /* Permite ver el fondo.png del body */
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.9s ease, transform 0.9s ease;
@@ -344,6 +306,8 @@ body.invitation-open .hero-section {
 }
 
 .hero-content {
+  position: relative;
+  z-index: 2;
   width: min(100%, 700px);
   text-align: center;
 }
@@ -422,9 +386,8 @@ body.invitation-locked {
   overflow: hidden;
 }
 
-
 /* =========================================================
-   RESPONSIVE — DISPOSITIVOS MÓVILES Y TABLETS
+   RESPONSIVE — DISPOSITIVOS MÓVILES
    ========================================================= */
 
 @media (max-width: 768px) {
@@ -441,23 +404,16 @@ body.invitation-locked {
     margin-top: 36px;
   }
 
-  /* Reposicionamiento sutil de los botánicos en pantallas medianas/móviles */
-  .botanical {
-    width: clamp(160px, 42vw, 240px);
-    height: clamp(240px, 55vw, 340px);
-    opacity: 0.88;
+  .botanical-png {
+    width: clamp(200px, 45vw, 320px);
   }
 
-  .botanical-left {
-    left: -60px;
-    bottom: 2%;
-    transform: rotate(-10deg) scale(0.9);
+  .botanical-png-left {
+    transform: translate(-15%, 15%);
   }
 
-  .botanical-right {
-    right: -60px;
-    top: 2%;
-    transform: rotate(10deg) scale(0.9);
+  .botanical-png-right {
+    transform: translate(15%, -15%);
   }
 
   .couple-names {
@@ -494,38 +450,5 @@ body.invitation-locked {
 
   .hero-content h1 {
     font-size: clamp(48px, 14vw, 72px);
-  }
-}
-
-
-/* PANTALLAS PEQUEÑAS (CELULARES DE ANCHO < 420px) */
-@media (max-width: 420px) {
-  .opening-screen {
-    padding-top: 28px;
-  }
-
-  .envelope-wrapper {
-    margin-top: 28px;
-  }
-
-  /* Ajuste para que las flores enmarquen la pantalla sin sobreponerse al texto */
-  .botanical-left {
-    left: -75px;
-    bottom: -10px;
-    transform: rotate(-16deg) scale(0.8);
-  }
-
-  .botanical-right {
-    right: -75px;
-    top: 0px;
-    transform: rotate(16deg) scale(0.8);
-  }
-
-  .couple-names h1 {
-    font-size: 38px;
-  }
-
-  .open-button {
-    min-width: 200px;
   }
 }
