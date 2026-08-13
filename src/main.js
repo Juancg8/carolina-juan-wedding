@@ -167,7 +167,7 @@ const calendarSvg = `
 ========================================= */
 document.querySelector('#app').innerHTML = `
 
-<audio id="wedding-music" loop src="/src/assets/cancion.mp3"></audio>
+<audio id="wedding-music" loop src="/assets/cancion.mp3"></audio>
 
 <button id="music-btn" class="music-toggle-btn is-hidden" aria-label="Control de música">
   <span class="music-icon icon-play">🎵</span>
@@ -179,8 +179,8 @@ document.querySelector('#app').innerHTML = `
   <div class="monogram" aria-label="Carolina y Juan">
     <span>J</span><small>&</small><span>C</span>
   </div>
-  <img src="/src/assets/flores-izq.png" class="botanical-png botanical-png-left" alt="" aria-hidden="true" />
-  <img src="/src/assets/flores-der.png" class="botanical-png botanical-png-right" alt="" aria-hidden="true" />
+  <img src="/assets/flores-izq.png" class="botanical-png botanical-png-left" alt="" aria-hidden="true" />
+  <img src="/assets/flores-der.png" class="botanical-png botanical-png-right" alt="" aria-hidden="true" />
 
   <div class="envelope-wrapper">
     <div class="envelope" tabindex="0" role="button" aria-label="Abrir invitación">
@@ -238,7 +238,7 @@ document.querySelector('#app').innerHTML = `
 
     <!-- FOTO HERO MARCO -->
     <div class="hero-photo-frame">
-      <img src="/src/assets/hero-couple.jpg" alt="Juan y Carolina">
+      <img src="/assets/hero-couple.jpg" alt="Juan y Carolina">
     </div>
 
   </div>
@@ -252,7 +252,7 @@ document.querySelector('#app').innerHTML = `
   <div class="gallery-collage">
     <!-- Foto 1 (Destacada) -->
     <div class="gallery-item featured">
-      <img src="/src/assets/Gale_5.jpg" alt="Momento especial" class="gallery-img">
+      <img src="/assets/Gale_5.jpg" alt="Momento especial" class="gallery-img">
       <div class="gallery-overlay">
         <span>Ver foto</span>
       </div>
@@ -260,7 +260,7 @@ document.querySelector('#app').innerHTML = `
 
     <!-- Foto 2 -->
     <div class="gallery-item">
-      <img src="/src/assets/Gale_3.jpg" alt="Las gatas" class="gallery-img">
+      <img src="/assets/Gale_3.jpg" alt="Las gatas" class="gallery-img">
       <div class="gallery-overlay">
         <span>Ver foto</span>
       </div>
@@ -268,7 +268,7 @@ document.querySelector('#app').innerHTML = `
 
     <!-- Foto 3 -->
     <div class="gallery-item">
-      <img src="/src/assets/Gale_1.jpg" alt="Viajes" class="gallery-img">
+      <img src="/assets/Gale_1.jpg" alt="Viajes" class="gallery-img">
       <div class="gallery-overlay">
         <span>Ver foto</span>
       </div>
@@ -276,7 +276,7 @@ document.querySelector('#app').innerHTML = `
 
     <!-- Foto 4 -->
     <div class="gallery-item">
-      <img src="/src/assets/galeria-4.jpg" alt="Mascotas" class="gallery-img">
+      <img src="/assets/galeria-4.jpg" alt="Mascotas" class="gallery-img">
       <div class="gallery-overlay">
         <span>Ver foto</span>
       </div>
@@ -284,7 +284,7 @@ document.querySelector('#app').innerHTML = `
 
     <!-- Foto 5 -->
     <div class="gallery-item">
-      <img src="/src/assets/Gale_4.jpg" alt="Juntos" class="gallery-img">
+      <img src="/assets/Gale_4.jpg" alt="Juntos" class="gallery-img">
       <div class="gallery-overlay">
         <span>Ver foto</span>
       </div>
@@ -308,7 +308,7 @@ document.querySelector('#app').innerHTML = `
     <!-- COLUMNA IZQUIERDA: FOTO DE MILO -->
     <div class="milo-photo-column">
       <div class="milo-frame">
-        <img src="/src/assets/milo.jpg" alt="Milo" class="milo-img">
+        <img src="/assets/milo.jpg" alt="Milo" class="milo-img">
         <span class="milo-caption">Milo también los espera 🐾</span>
       </div>
     </div>
@@ -425,7 +425,7 @@ document.querySelector('#app').innerHTML = `
       <!-- COLUMNA HOMBRES (MILO) -->
       <div class="dresscode-card">
         <div class="dresscode-frame">
-          <img src="/src/assets/DressCodeHombre.jpg" alt="Milo en traje formal" class="dresscode-img">
+          <img src="/assets/DressCodeHombre.jpg" alt="Milo en traje formal" class="dresscode-img">
         </div>
         <h3 class="dresscode-gender">Hombres</h3>
         <p class="dresscode-desc">Traje Formal / Esmoquin<br><em>(¡Así de elegante como Milo!)</em></p>
@@ -568,7 +568,7 @@ document.querySelector('#app').innerHTML = `
         <p class="card-desc">Escanea el código QR o haz clic en el botón para subir tus fotos y videos al álbum compartido en Google Drive.</p>
         
         <div class="qr-frame">
-          <img src="/src/assets/qr-drive.png" alt="Código QR Google Drive" class="qr-image">
+          <img src="/assets/qr-drive.png" alt="Código QR Google Drive" class="qr-image">
         </div>
 
         <a href="https://drive.google.com" target="_blank" rel="noopener" class="interactive-btn">
