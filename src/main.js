@@ -179,8 +179,8 @@ document.querySelector('#app').innerHTML = `
   <div class="monogram" aria-label="Carolina y Juan">
     <span>J</span><small>&</small><span>C</span>
   </div>
-  <img src="/assets/flores-izq.png" class="botanical-png botanical-png-left" alt="" aria-hidden="true" />
-  <img src="/assets/flores-der.png" class="botanical-png botanical-png-right" alt="" aria-hidden="true" />
+  <img src="/assets/Flores-izq.png" class="botanical-png botanical-png-left" alt="" aria-hidden="true" />
+  <img src="/assets/Flores-der.png" class="botanical-png botanical-png-right" alt="" aria-hidden="true" />
 
   <div class="envelope-wrapper">
     <div class="envelope" tabindex="0" role="button" aria-label="Abrir invitación">
@@ -308,7 +308,7 @@ document.querySelector('#app').innerHTML = `
     <!-- COLUMNA IZQUIERDA: FOTO DE MILO -->
     <div class="milo-photo-column">
       <div class="milo-frame">
-        <img src="/assets/milo.jpg" alt="Milo" class="milo-img">
+        <img src="/assets/Milo.jpg" alt="Milo" class="milo-img">
         <span class="milo-caption">Milo también los espera 🐾</span>
       </div>
     </div>

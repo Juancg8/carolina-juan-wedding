@@ -61,7 +61,7 @@ body.invitation-open::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: url('/src/assets/fondo.png');
+  background-image: url('./assets/Fondo.png');
   background-repeat: repeat;
   background-position: center top;
   background-size: cover;
