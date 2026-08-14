@@ -55,18 +55,33 @@ body {
   position: relative;
 }
 
-/* Fondo continuo translúcido con textura al abrir invitación */
+/* Aseguramos que el body cree su propio contexto de apilamiento */
+body {
+  position: relative;
+  background-color: transparent; /* Evita que el fondo del body tape el ::before */
+}
+
+/* Fondo continuo cuando la invitación se abre */
 body.invitation-open::before {
   content: "";
   position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image: url('./assets/Fondo.png');
-  background-repeat: repeat;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0; /* Lo cambiamos a 0 en lugar de -1 */
+  background-image: url('/assets/fondo_2.png');
   background-position: center top;
   background-size: cover;
+  background-repeat: no-repeat;
   opacity: 0.4;
   pointer-events: none;
+}
+
+/* Todos los elementos dentro del body deben estar por encima del fondo (z-index: 1 o más) */
+body.invitation-open > * {
+  position: relative;
+  z-index: 1;
 }
 
 body.invitation-locked {

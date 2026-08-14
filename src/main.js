@@ -252,7 +252,7 @@ document.querySelector('#app').innerHTML = `
   <div class="gallery-collage">
     <!-- Foto 1 (Destacada) -->
     <div class="gallery-item featured">
-      <img src="/assets/Gale_5.jpg" alt="Momento especial" class="gallery-img">
+      <img src="/assets/Gale_1.jpg" alt="Momento especial" class="gallery-img">
       <div class="gallery-overlay">
         <span>Ver foto</span>
       </div>
@@ -260,7 +260,7 @@ document.querySelector('#app').innerHTML = `
 
     <!-- Foto 2 -->
     <div class="gallery-item">
-      <img src="/assets/Gale_3.jpg" alt="Las gatas" class="gallery-img">
+      <img src="/assets/Gale_2.jpg" alt="Las gatas" class="gallery-img">
       <div class="gallery-overlay">
         <span>Ver foto</span>
       </div>
@@ -268,7 +268,7 @@ document.querySelector('#app').innerHTML = `
 
     <!-- Foto 3 -->
     <div class="gallery-item">
-      <img src="/assets/Gale_1.jpg" alt="Viajes" class="gallery-img">
+      <img src="/assets/Gale_3.jpg" alt="Viajes" class="gallery-img">
       <div class="gallery-overlay">
         <span>Ver foto</span>
       </div>
@@ -276,7 +276,7 @@ document.querySelector('#app').innerHTML = `
 
     <!-- Foto 4 -->
     <div class="gallery-item">
-      <img src="/assets/galeria-4.jpg" alt="Mascotas" class="gallery-img">
+      <img src="/assets/Gale_4.jpg" alt="Mascotas" class="gallery-img">
       <div class="gallery-overlay">
         <span>Ver foto</span>
       </div>
@@ -284,7 +284,7 @@ document.querySelector('#app').innerHTML = `
 
     <!-- Foto 5 -->
     <div class="gallery-item">
-      <img src="/assets/Gale_4.jpg" alt="Juntos" class="gallery-img">
+      <img src="/assets/Gale_5.jpg" alt="Juntos" class="gallery-img">
       <div class="gallery-overlay">
         <span>Ver foto</span>
       </div>
