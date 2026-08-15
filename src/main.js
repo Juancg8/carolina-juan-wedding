@@ -405,7 +405,14 @@ document.querySelector('#app').innerHTML = `
     </div>
 
     <div class="calendar-action">
-      <a href="#" class="calendar-btn">🗓️ Agregar al Calendario</a>
+      <a 
+        href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Matrimonio+Carolina+%26+Juan&dates=20261017T203000Z/20261018T050000Z&details=%C2%A1Acomp%C3%A1%C3%B1anos+a+celebrar+nuestro+matrimonio%21+Ceremonia+en+Iglesia+Maria+Auxiliadora+y+recepci%C3%B3n+en+Hacienda+La+Milagrosa.&location=Iglesia+Maria+Auxiliadora%2C+Cogua%2C+Cundinamarca" 
+        target="_blank" 
+        rel="noopener" 
+        class="calendar-btn"
+      >
+        🗓️ Agregar a Google Calendar
+      </a>
     </div>
   </div>
 </section>
