@@ -632,33 +632,44 @@ body.invitation-open .hero-section {
 }
 
 /* =========================================
-   CRÉDITOS DEL FOTÓGRAFO
+   CRÉDITOS DEL FOTÓGRAFO (AL PIE)
 ========================================= */
 .gallery-credits {
-  margin-top: 18px;
-  text-align: right; /* Puedes cambiar a 'center' si prefieres centrarlo */
-  padding-right: 5px;
+  width: 100%;
+  clear: both;
+  margin-top: 25px;
+  text-align: center; /* Centrado debajo del collage para que resalte en cualquier pantalla */
 }
 
 .gallery-credits p {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   font-family: 'Manrope', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: #6b7280;
   margin: 0;
   letter-spacing: 0.5px;
 }
 
 .gallery-credits a {
-  color: #ad8750; /* Dorado elegante acorde a la paleta */
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #ad8750; /* Dorado acorde a la línea gráfica */
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.3s ease, border-bottom 0.3s ease;
-  border-bottom: 1px dotted rgba(173, 135, 80, 0.5);
+  transition: color 0.3s ease;
 }
 
 .gallery-credits a:hover {
-  color: #0b3048; /* Oscurece al pasar el cursor */
-  border-bottom-color: #0b3048;
+  color: #0b3048;
+}
+
+.ig-icon {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 @media (max-width: 768px) {
