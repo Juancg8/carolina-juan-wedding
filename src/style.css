@@ -115,17 +115,62 @@ img {
   text-transform: uppercase;
 }
 
-/* EFECTO FADE-IN Y ELEVACIÓN POR SECCIONES */
+/* EFECTO FADE-IN AL SCROLLEAR */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.9s cubic-bezier(0.165, 0.84, 0.44, 1);
-  will-change: opacity, transform;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 .reveal-on-scroll.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* INDICADOR DE SCROLL SÚTIL */
+.scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 35px;
+  padding-bottom: 20px;
+  opacity: 0.8;
+}
+
+.scroll-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold, #ad8750);
+}
+
+.scroll-arrow {
+  width: 22px;
+  height: 22px;
+  color: var(--gold, #ad8750);
+  animation: bounceArrow 2s infinite;
+}
+
+.scroll-arrow svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ANIMACIÓN DE REBOTE */
+@keyframes bounceArrow {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(6px);
+  }
+  60% {
+    transform: translateY(3px);
+  }
 }
 
 /* =========================================================
@@ -541,7 +586,10 @@ body.invitation-open .hero-section {
   transform: translateY(0);
 }
 
-/* LIGHTBOX LIMPIO Y SIN DUPLICADOS */
+/* =========================================================
+   LIGHTBOX / VISOR CON TRANSICIÓN SUAVE
+   ========================================================= */
+
 .lightbox {
   display: flex;
   position: fixed;
@@ -567,20 +615,20 @@ body.invitation-open .hero-section {
   border-radius: 8px;
   border: 1px solid rgba(189, 152, 85, 0.4);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-  transform: scale(0.88);
+  transform: scale(0.85);
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   object-fit: contain;
 }
 
 .lightbox.is-active .lightbox-content {
-  transform: scale(1);
+  transform: scale(1); /* Efecto pop-up suave al abrir */
 }
 
 .lightbox-close {
   position: absolute;
   top: 24px;
   right: 32px;
-  color: #ffffff;
+  color: var(--paper-light);
   font-size: 38px;
   font-weight: 300;
   cursor: pointer;
@@ -1512,4 +1560,237 @@ body.invitation-open .hero-section {
 .submit-btn:hover {
   background: var(--gold);
   border-color: var(--gold);
+}
+
+/* =========================================
+   SECCIÓN RSVP / CONFIRMACIÓN DE ASISTENCIA
+========================================= */
+.rsvp-section {
+  padding: 80px 20px;
+  background-color: transparent !important; /* Deja ver el fondo botánico global */
+  background-image: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.rsvp-container {
+  max-width: 650px;
+  width: 100%;
+}
+
+.rsvp-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px 30px;
+  box-shadow: 0 10px 30px rgba(11, 48, 72, 0.08);
+  border: 1px solid rgba(173, 135, 80, 0.2);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.rsvp-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #ad8750, #c94e17, #0b3048);
+}
+
+.rsvp-icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.rsvp-form {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.checklist-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+/* Tarjeta individual de invitado */
+.rsvp-checkbox-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px 20px;
+  background-color: #f8f5eb;
+  border: 1.5px solid #e2daca;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.rsvp-checkbox-card:hover {
+  border-color: #ad8750;
+  background-color: #f3efe2;
+  transform: translateY(-1px);
+}
+
+.rsvp-checkbox-card.selected {
+  background-color: #fdf6f0;
+  border-color: #c94e17;
+  box-shadow: 0 4px 12px rgba(201, 78, 23, 0.12);
+}
+
+/* Ocultar checkbox por defecto */
+.checkbox-wrapper {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Custom Checkbox con estilo */
+.custom-checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  background-color: #ffffff;
+  border: 2px solid #ad8750;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.checkbox-wrapper input:checked ~ .custom-checkbox {
+  background-color: #c94e17;
+  border-color: #c94e17;
+}
+
+.custom-checkbox::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 12px;
+  border: solid stroke;
+  border-color: white;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-wrapper input:checked ~ .custom-checkbox::after {
+  display: block;
+}
+
+/* Texto del invitado */
+.guest-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.guest-fullname {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0b3048;
+  line-height: 1.2;
+}
+
+.guest-status {
+  font-size: 0.82rem;
+  color: #8c7b6c;
+  margin-top: 2px;
+  font-style: italic;
+}
+
+.rsvp-checkbox-card.selected .guest-status {
+  color: #c94e17;
+  font-weight: 600;
+}
+
+/* Botón de Confirmar */
+.rsvp-submit {
+  width: 100%;
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #0b3048, #152a3a);
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(11, 48, 72, 0.2);
+}
+
+.rsvp-submit:hover {
+  background: linear-gradient(135deg, #c94e17, #ad8750);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201, 78, 23, 0.3);
+}
+
+.rsvp-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Estados de carga / alertas */
+.rsvp-loading {
+  text-align: center;
+  padding: 20px 0;
+  color: #ad8750;
+  font-style: italic;
+}
+
+.spinner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(173, 135, 80, 0.3);
+  border-radius: 50%;
+  border-top-color: #ad8750;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.rsvp-alert {
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.rsvp-alert.info {
+  background-color: #edf4f8;
+  color: #0b3048;
+  border: 1px solid #b8d4e5;
+}
+
+.rsvp-alert.error {
+  background-color: #fdf0ed;
+  color: #9e3b12;
+  border: 1px solid #f2c4b3;
 }

@@ -1,4 +1,5 @@
 import './style.css'
+import { supabase } from './supabaseClient.js'
 
 document.body.classList.add('invitation-locked')
 
@@ -158,14 +159,14 @@ const calendarSvg = `
 ========================================= */
 document.querySelector('#app').innerHTML = `
 
-<audio id="wedding-music" loop src="/assets/cancion.mp3"></audio>
+<audio id="wedding-music" loop src="/assets/cancion1.mp3"></audio>
 
 <button id="music-btn" class="music-toggle-btn is-hidden" aria-label="Control de música">
   <span class="music-icon icon-play">🎵</span>
   <span class="music-icon icon-pause">⏸</span>
 </button>
 
-<!-- 1. PANTALLA INICIAL SOBRE -->
+<!-- PANTALLA INICIAL SOBRE -->
 <section class="opening-screen">
   <div class="monogram" aria-label="Carolina y Juan">
     <span>J</span><small>&</small><span>C</span>
@@ -184,12 +185,15 @@ document.querySelector('#app').innerHTML = `
     <div class="date">
       <span>17</span><i>•</i><span>10</span><i>•</i><span>2026</span>
     </div>
+    <div class="guest-envelope-title" style="margin-top: 15px; font-size: 1.2rem; color: #ad8750;">
+      <span id="envelope-guest-name">Cargando invitación...</span>
+    </div>
   </div>
 
   <button class="open-button" type="button">Abrir invitación</button>
 </section>
 
-<!-- SECCIÓN HERO -->
+<!-- 1. SECCIÓN HERO -->
 <section class="hero-section reveal-on-scroll">
   <div class="hero-content">
 
@@ -212,7 +216,7 @@ document.querySelector('#app').innerHTML = `
     </div>
 
     <p class="hero-announcement">
-      Tenemos el honor de invitarles a celebrar nuestro matrimonio
+      Tenemos el gusto de invitarlos a celebrar nuestro matrimonio
     </p>
 
     <div class="couple-names-hero">
@@ -225,10 +229,19 @@ document.querySelector('#app').innerHTML = `
       <img src="/assets/hero-couple.jpg" alt="Juan y Carolina">
     </div>
 
+    <div class="scroll-hint">
+      <span class="scroll-text">Desliza hacia abajo</span>
+      <div class="scroll-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5v14M19 12l-7 7-7-7"/>
+        </svg>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- SECCIÓN GALERÍA DE FOTOS -->
+<!-- 2. SECCIÓN GALERÍA DE FOTOS -->
 <section class="gallery-section reveal-on-scroll">
   <h2 class="section-title">Nuestros Momentos</h2>
   <p class="section-subtitle">Un recorrido por nuestra historia</p>
@@ -257,7 +270,7 @@ document.querySelector('#app').innerHTML = `
   </div>
 </section>
 
-<!-- SECCIÓN CALENDARIO, CUENTA REGRESIVA Y MILO -->
+<!-- 3. SECCIÓN CALENDARIO, CUENTA REGRESIVA Y MILO -->
 <section class="date-section reveal-on-scroll">
   <h2 class="section-title">Reserva la Fecha</h2>
   <p class="section-subtitle">Octubre 17 2026</p>
@@ -299,7 +312,7 @@ document.querySelector('#app').innerHTML = `
   </div>
 </section>
 
-<!-- SECCIÓN FECHA Y UBICACIÓN -->
+<!-- 4. SECCIÓN FECHA Y UBICACIÓN -->
 <section class="event-section reveal-on-scroll">
   <div class="event-container">
     <h2 class="section-title">¿Cuándo y Dónde?</h2>
@@ -347,7 +360,7 @@ document.querySelector('#app').innerHTML = `
   </div>
 </section>
 
-<!-- SECCIÓN DRESS CODE -->
+<!-- 5. SECCIÓN DRESS CODE -->
 <section class="dresscode-section reveal-on-scroll">
   <div class="dresscode-container">
     <h2 class="section-title">Código de Vestimenta</h2>
@@ -359,7 +372,7 @@ document.querySelector('#app').innerHTML = `
           <img src="/assets/DressCodeHombre.jpg" alt="Milo en traje formal" class="dresscode-img">
         </div>
         <h3 class="dresscode-gender">Hombres</h3>
-        <p class="dresscode-desc">Traje Formal / Esmoquin<br><em>(¡Así de elegante como Milo!)</em></p>
+        <p class="dresscode-desc">Traje Formal / Elegante <br><em>(¡Así de elegante como Milo!)</em></p>
       </div>
 
       <div class="dresscode-card">
@@ -400,62 +413,34 @@ document.querySelector('#app').innerHTML = `
   </div>
 </section>
 
-<!-- SECCIÓN ITINERARIO / ORDEN DEL DÍA -->
-<section class="timeline-section reveal-on-scroll">
-  <div class="timeline-container">
-    <h2 class="section-title">Orden del Día</h2>
-    <p class="section-subtitle">Así celebraremos nuestro gran día</p>
-
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-marker"><span class="timeline-icon">⛪</span></div>
-        <div class="timeline-content">
-          <span class="timeline-time">3:30 PM</span>
-          <h3 class="timeline-title">Ceremonia Religiosa</h3>
-          <p class="timeline-desc">Parroquia María Auxiliadora - La Plazuela</p>
-        </div>
+<!-- 6. SECCIÓN CONFIRMACIÓN DE ASISTENCIA (RSVP) -->
+<section class="rsvp-section reveal-on-scroll">
+  <div class="rsvp-container">
+    <div class="rsvp-card">
+      <div class="rsvp-header">
+        <div class="rsvp-icon">✉️</div>
+        <h2 class="section-title">Confirmación de Asistencia</h2>
+        <p class="section-subtitle">Por favor confirma quiénes nos acompañarán este día:</p>
       </div>
 
-      <div class="timeline-item">
-        <div class="timeline-marker"><span class="timeline-icon">🥂</span></div>
-        <div class="timeline-content">
-          <span class="timeline-time">5:00 PM</span>
-          <h3 class="timeline-title">Llegada a la Recepción</h3>
-          <p class="timeline-desc">Bienvenida y cóctel en Hacienda La Milagrosa</p>
+      <form id="rsvp-form" class="rsvp-form">
+        <div id="checklist-container" class="checklist-container">
+          <!-- Cargando participantes con animación -->
+          <div class="rsvp-loading">
+            <span class="spinner"></span>
+            <p>Buscando tus pases de entrada...</p>
+          </div>
         </div>
-      </div>
 
-      <div class="timeline-item">
-        <div class="timeline-marker"><span class="timeline-icon">🍽️</span></div>
-        <div class="timeline-content">
-          <span class="timeline-time">7:00 PM</span>
-          <h3 class="timeline-title">Cena & Brindis</h3>
-          <p class="timeline-desc">Compartiremos la mesa con la mejor compañía</p>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-marker"><span class="timeline-icon">🪩</span></div>
-        <div class="timeline-content">
-          <span class="timeline-time">8:00 PM</span>
-          <h3 class="timeline-title">¡A Bailar!</h3>
-          <p class="timeline-desc">Apertura de pista y fiesta hasta la madrugada</p>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-marker"><span class="timeline-icon">✨</span></div>
-        <div class="timeline-content">
-          <span class="timeline-time">12:00 AM</span>
-          <h3 class="timeline-title">Fin del Evento</h3>
-          <p class="timeline-desc">Cierre de una noche inolvidable</p>
-        </div>
-      </div>
+        <button type="submit" class="interactive-btn submit-btn rsvp-submit">
+          <span>Confirmar Asistencia</span>
+        </button>
+      </form>
     </div>
   </div>
 </section>
 
-<!-- SECCIÓN INTERACTIVA -->
+<!-- 7. SECCIÓN INTERACTIVA (FOTOS & MÚSICA) -->
 <section class="interactive-section reveal-on-scroll">
   <div class="interactive-container">
     <h2 class="section-title">¡Hagamos la Fiesta Juntos!</h2>
@@ -517,7 +502,6 @@ const openingScreen = document.querySelector('.opening-screen')
 const envelope = document.querySelector('.envelope')
 const envelopeWrapper = document.querySelector('.envelope-wrapper')
 const openButton = document.querySelector('.open-button')
-const heroSection = document.querySelector('.hero-section')
 
 const audio = document.getElementById('wedding-music')
 const musicBtn = document.getElementById('music-btn')
@@ -548,31 +532,25 @@ function toggleMusic() {
 
 musicBtn.addEventListener('click', toggleMusic)
 
-/* TRANSICIÓN AUTOMÁTICA Y SCROLL */
 function openInvitation() {
   if (openingScreen.classList.contains('is-opening')) return
 
   playMusic()
 
-  // 1. Abrir la solapa del sobre
   openingScreen.classList.add('is-opening')
   envelope.classList.add('is-open')
   envelopeWrapper.classList.add('is-open')
   openButton.classList.add('is-hidden')
 
-  // 2. Liberar scroll del body y pasar suavemente al Hero
   setTimeout(() => {
     document.body.classList.remove('invitation-locked')
     document.body.classList.add('invitation-open')
 
-    heroSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
-
-    // 3. Ocultar la pantalla de apertura tras completarse el desplazamiento
     setTimeout(() => {
       openingScreen.style.display = 'none'
       initScrollAnimations()
-    }, 800)
-  }, 1000)
+    }, 600)
+  }, 600)
 }
 
 openButton.addEventListener('click', openInvitation)
@@ -606,19 +584,24 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000)
 updateCountdown()
 
-/* =========================================
-   ANIMACIÓN DE DESVANECIMIENTO AL SCROLLEAR (FADE-IN EFFECT)
-========================================= */
+/* ANIMACIÓN DE DESVANECIMIENTO (FADE-IN EFFECT) */
 function initScrollAnimations() {
   const reveals = document.querySelectorAll('.reveal-on-scroll')
 
-  const observer = new IntersectionObserver((entries) => {
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -50px 0px',
+    threshold: 0.05
+  }
+
+  const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible')
+        obs.unobserve(entry.target)
       }
     })
-  }, { threshold: 0.12 })
+  }, observerOptions)
 
   reveals.forEach(el => observer.observe(el))
 }
@@ -665,18 +648,172 @@ if (lightbox) {
 }
 
 /* =========================================
-   FORMULARIO MÚSICA
+   FORMULARIO MÚSICA (CONEXIÓN SUPABASE)
 ========================================= */
 const musicForm = document.getElementById('music-form')
+
 if (musicForm) {
-  musicForm.addEventListener('submit', (e) => {
+  musicForm.addEventListener('submit', async (e) => {
     e.preventDefault()
+
+    const submitBtn = musicForm.querySelector('.submit-btn')
+    const originalText = submitBtn.innerHTML
 
     const artist = document.getElementById('artist').value
     const song = document.getElementById('song').value
     const link = document.getElementById('link').value
 
-    alert(`¡Gracias! Añadiremos "${song}" de ${artist} a la playlist.`)
-    musicForm.reset()
+    submitBtn.disabled = true
+    submitBtn.innerHTML = '<span>Enviando...</span>'
+
+    try {
+      const { error } = await supabase
+        .from('canciones')
+        .insert([
+          { artista: artist, cancion: song, link: link }
+        ])
+
+      if (error) throw error
+
+      alert(`🎶 ¡Genial! Guardamos "${song}" de ${artist} en la lista de peticiones.`)
+      musicForm.reset()
+    } catch (err) {
+      console.error('Error al guardar canción:', err)
+      alert('Hubo un problema al enviar la canción. Inténtalo de nuevo.')
+    } finally {
+      submitBtn.disabled = false
+      submitBtn.innerHTML = originalText
+    }
   })
 }
+/* =========================================
+   INTEGRACIÓN SUPABASE (RSVP & SOBRE)
+========================================= */
+const params = new URLSearchParams(window.location.search)
+const familiaSlug = params.get('f')
+
+async function cargarDatosInvitacion() {
+  const container = document.getElementById('checklist-container')
+
+  if (!familiaSlug) {
+    if (container) {
+      container.innerHTML = `
+        <div class="rsvp-alert info">
+          ℹ️ Estás viendo una vista previa de la invitación. Para confirmar asistencia, usa tu enlace personalizado.
+        </div>
+      `
+    }
+    return
+  }
+
+  const { data: familia, error } = await supabase
+    .from('familias')
+    .select('id, nombre_sobre, invitados(id, nombre_completo, asiste)')
+    .eq('slug', familiaSlug)
+    .single()
+
+  if (error || !familia) {
+    console.error('No se encontró información para esta familia:', error)
+    if (container) {
+      container.innerHTML = `
+        <div class="rsvp-alert error">
+          ⚠️ No pudimos encontrar tu lista de pases. Por favor verifica el enlace enviado.
+        </div>
+      `
+    }
+    return
+  }
+
+  const envelopeLabel = document.getElementById('envelope-guest-name')
+  if (envelopeLabel) {
+    envelopeLabel.innerText = familia.nombre_sobre
+  }
+
+  renderizarChecklistRSVP(familia.invitados)
+}
+
+function renderizarChecklistRSVP(listaInvitados) {
+  const container = document.getElementById('checklist-container')
+  if (!container) return
+
+  container.innerHTML = ''
+
+  if (!listaInvitados || listaInvitados.length === 0) {
+    container.innerHTML = '<p class="rsvp-empty">No hay invitados registrados bajo esta familia.</p>'
+    return
+  }
+
+  listaInvitados.forEach(invitado => {
+    const label = document.createElement('label')
+    label.className = 'rsvp-checkbox-card'
+
+    const isChecked = invitado.asiste === true ? 'checked' : ''
+
+    label.innerHTML = `
+      <div class="checkbox-wrapper">
+        <input type="checkbox" data-id="${invitado.id}" ${isChecked} />
+        <span class="custom-checkbox"></span>
+      </div>
+      <div class="guest-info">
+        <span class="guest-fullname">${invitado.nombre_completo}</span>
+        <span class="guest-status">${invitado.asiste ? 'Asistencia confirmada' : 'Pendiente por confirmar'}</span>
+      </div>
+    `
+
+    const checkbox = label.querySelector('input')
+    const statusText = label.querySelector('.guest-status')
+
+    checkbox.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        label.classList.add('selected')
+        statusText.innerText = '¡Confirmado!'
+      } else {
+        label.classList.remove('selected')
+        statusText.innerText = 'No asistirá'
+      }
+    })
+
+    if (invitado.asiste) {
+      label.classList.add('selected')
+    }
+
+    container.appendChild(label)
+  })
+}
+
+const rsvpForm = document.getElementById('rsvp-form')
+if (rsvpForm) {
+  rsvpForm.addEventListener('submit', async (e) => {
+    e.preventDefault()
+
+    const submitBtn = rsvpForm.querySelector('.submit-btn')
+    const originalText = submitBtn.innerHTML
+    
+    submitBtn.disabled = true
+    submitBtn.innerHTML = '<span>Guardando...</span>'
+
+    try {
+      const checkboxes = document.querySelectorAll('#checklist-container input[type="checkbox"]')
+      
+      for (const cb of checkboxes) {
+        const invitadoId = cb.getAttribute('data-id')
+        const estaConfirmado = cb.checked
+
+        await supabase
+          .from('invitados')
+          .update({ asiste: estaConfirmado })
+          .eq('id', invitadoId)
+      }
+
+      alert('✨ ¡Muchas gracias! Tu respuesta ha sido guardada exitosamente.')
+    } catch (err) {
+      console.error(err)
+      alert('Hubo un error al guardar tu confirmación. Intenta de nuevo.')
+    } finally {
+      submitBtn.disabled = false
+      submitBtn.innerHTML = originalText
+    }
+  })
+}
+
+document.addEventListener('DOMContentLoaded', cargarDatosInvitacion)
