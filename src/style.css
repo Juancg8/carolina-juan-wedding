@@ -93,22 +93,31 @@ img {
   max-width: 100%;
 }
 
-/* TÍTULOS Y SUBTÍTULOS GLOBALES */
+/* =========================================================
+   AJUSTE DE TÍTULOS Y SUBTÍTULOS (MAYOR CONTRASTE Y LECTURABILIDAD)
+   ========================================================= */
+
 .section-title {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 2.2rem;
-  color: var(--navy);
+  font-size: clamp(2.2rem, 4vw, 2.8rem);
+  font-weight: 700;                 /* Un poco más firme para ganar legibilidad */
+  color: var(--navy);               /* Azul marino profundo (#152A3A) */
   text-align: center;
   margin-bottom: 6px;
+  /* Sombra sutil blanca/crema detrás de las letras para separarlas del patrón del fondo */
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8), 0 2px 8px rgba(255, 255, 255, 0.5);
 }
 
 .section-subtitle {
   text-align: center;
-  color: var(--gold);
+  color: #8E6A28;                   /* Dorado más intenso y oscuro que el anterior (#BD9855) */
   font-size: 0.95rem;
-  margin-bottom: 24px;
-  letter-spacing: 2px;
+  font-weight: 600;                 /* Mayor peso para que no se vea delgado */
+  margin-bottom: 28px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
+  /* Halo ligero claro para mejorar lectura sobre texturas */
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
 }
 
 /* EFECTO FADE-IN AL SCROLLEAR */
@@ -123,31 +132,44 @@ img {
   transform: translateY(0);
 }
 
-/* INDICADOR DE SCROLL SÚTIL */
+/* =========================================
+   MEJORA DE VISIBILIDAD: DESLIZA HACIA ABAJO
+========================================= */
 .scroll-hint {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  margin-top: 35px;
-  padding-bottom: 20px;
-  opacity: 0.8;
+  gap: 8px;
+  margin-top: 25px;
+  
+  /* Contenedor tipo píldora translúcida para contrastar contra la foto */
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 10px 22px;
+  border-radius: 30px;
+  border: 1px solid rgba(173, 135, 80, 0.4);
+  box-shadow: 0 4px 15px rgba(11, 48, 72, 0.15);
+  
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .scroll-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.95rem;
-  letter-spacing: 2px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
   text-transform: uppercase;
-  color: var(--gold, #ad8750);
+  letter-spacing: 2px;
+  color: #0b3048; /* Azul oscuro para máximo contraste */
 }
 
 .scroll-arrow {
   width: 22px;
   height: 22px;
-  color: var(--gold, #ad8750);
-  animation: bounceArrow 2s infinite;
+  color: #c94e17; /* Terracota acento */
+  animation: bounceArrow 1.8s infinite;
 }
 
 .scroll-arrow svg {
@@ -156,6 +178,7 @@ img {
   display: block;
 }
 
+/* Animación sutil de rebote para guiar la vista */
 @keyframes bounceArrow {
   0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
@@ -402,23 +425,27 @@ body.invitation-open .hero-section {
 
 .hero-announcement {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
   font-style: italic;
-  color: var(--navy-soft);
+  font-weight: 600;                     /* Un poco más de cuerpo a la letra */
+  color: var(--navy);                   /* Oscurecido de navy-soft a navy profundo */
   letter-spacing: 1px;
   margin: 20px 0 28px 0;
   text-align: center;
+  /* Halo claro para descolgar la frase del patrón de fondo */
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 255, 255, 0.6);
 }
 
 .parents-main-label {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+  font-size: clamp(0.95rem, 1.6vw, 1.2rem);
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: var(--gold);
+  color: #8E6A28;                       /* Dorado con mayor saturación y contraste */
   margin-bottom: 16px;
-  font-weight: 600;
+  font-weight: 700;                     /* Subimos el grosor para mejorar lectura */
   text-align: center;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
 }
 
 .parents-block {
@@ -436,18 +463,20 @@ body.invitation-open .hero-section {
 
 .parent-name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.05rem, 1.7vw, 1.25rem);
-  color: var(--navy);
+  font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+  color: var(--navy);                   /* Azul marino legible */
   margin: 3px 0;
   line-height: 1.25;
   white-space: nowrap;
-  font-weight: 500;
+  font-weight: 600;                     /* Trazos más firmes */
+  /* Sombra de relieve sutil para que los nombres resalten al instante */
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 2px 6px rgba(255, 255, 255, 0.5);
 }
 
 .parents-divider {
-  width: 1px;
-  height: 40px;
-  background-color: rgba(189, 152, 85, 0.4);
+  width: 1.5px;                         /* Un poquito más visible el separador */
+  height: 42px;
+  background-color: rgba(142, 106, 40, 0.5); /* Tono dorado más firme */
   flex-shrink: 0;
 }
 
@@ -493,7 +522,7 @@ body.invitation-open .hero-section {
 }
 
 /* =========================================================
-   SECCIÓN GALERÍA DE FOTOS (COLLAGE ASIMÉTRICO)
+   GALERÍA: 1 GRANDE + 2 MEDIANAS + 2 MINI-MOSAICOS
    ========================================================= */
 
 .gallery-section {
@@ -511,6 +540,7 @@ body.invitation-open .hero-section {
   margin-top: 28px;
 }
 
+/* Tarjeta individual (Medianas y Destacada) */
 .gallery-item {
   position: relative;
   overflow: hidden;
@@ -522,11 +552,33 @@ body.invitation-open .hero-section {
   transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
 }
 
+/* Foto principal (Ocupa 2 columnas x 2 filas) */
 .gallery-item.featured {
   grid-column: span 2;
   grid-row: span 2;
 }
 
+/* Contenedor de Mini-Mosaicos (Grilla 2x2 interna) */
+.gallery-mosaic-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+  height: 100%;
+}
+
+.gallery-item.mini-item {
+  height: 100%;
+  border-radius: 6px;
+}
+
+.gallery-item.mini-item .gallery-overlay span {
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  padding: 3px 6px;
+}
+
+/* Imagenes y Hover */
 .gallery-img {
   width: 100%;
   height: 100%;
@@ -540,6 +592,7 @@ body.invitation-open .hero-section {
   inset: 0;
   background: rgba(21, 42, 58, 0.4);
   backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -576,6 +629,60 @@ body.invitation-open .hero-section {
 
 .gallery-item:hover .gallery-overlay span {
   transform: translateY(0);
+}
+
+/* =========================================
+   CRÉDITOS DEL FOTÓGRAFO
+========================================= */
+.gallery-credits {
+  margin-top: 18px;
+  text-align: right; /* Puedes cambiar a 'center' si prefieres centrarlo */
+  padding-right: 5px;
+}
+
+.gallery-credits p {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.gallery-credits a {
+  color: #ad8750; /* Dorado elegante acorde a la paleta */
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  border-bottom: 1px dotted rgba(173, 135, 80, 0.5);
+}
+
+.gallery-credits a:hover {
+  color: #0b3048; /* Oscurece al pasar el cursor */
+  border-bottom-color: #0b3048;
+}
+
+@media (max-width: 768px) {
+  .gallery-credits {
+    text-align: center; /* En celular se ve mejor centrado */
+    margin-top: 14px;
+  }
+}
+
+/* Adaptación para celulares */
+@media (max-width: 768px) {
+  .gallery-collage {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 240px;
+  }
+
+  .gallery-item.featured {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .gallery-mosaic-card {
+    height: 240px;
+  }
 }
 
 /* =========================================================
@@ -1678,4 +1785,76 @@ body.invitation-open .hero-section {
     grid-column: span 2;
     grid-row: span 2;
   }
+}
+
+/* =========================================
+   8. SECCIÓN LLUVIA DE SOBRES Y CIERRE
+========================================= */
+.closing-section {
+  padding: 60px 20px 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.closing-container {
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.closing-card {
+  background: rgba(250, 248, 243, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 45px 30px;
+  border: 1px solid rgba(189, 152, 85, 0.3);
+  box-shadow: 0 12px 32px rgba(21, 42, 58, 0.08);
+  text-align: center;
+}
+
+.closing-icon {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.closing-text {
+  font-family: sans-serif;
+  font-size: 1rem;
+  color: #4a5568;
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 15px auto 25px;
+}
+
+.closing-text strong {
+  color: #c94e17; /* Mismo color acento/terracota usado en la paleta */
+  font-weight: 600;
+}
+
+.closing-divider {
+  width: 60px;
+  height: 1px;
+  background-color: #ad8750;
+  margin: 0 auto 20px;
+  opacity: 0.5;
+}
+
+.closing-subtext {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #0b3048;
+  margin: 0 0 10px 0;
+}
+
+.closing-signature {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ad8750;
+  text-transform: uppercase;
+  margin: 0;
 }

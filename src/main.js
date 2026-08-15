@@ -243,30 +243,72 @@ document.querySelector('#app').innerHTML = `
 
 <!-- 2. SECCIÓN GALERÍA DE FOTOS -->
 <section class="gallery-section reveal-on-scroll">
-  <h2 class="section-title">Nuestros Momentos</h2>
-  <p class="section-subtitle">Un recorrido por nuestra historia</p>
+  <h2 class="section-title">Nuestras Mejores Aventuras</h2>
+  <p class="section-subtitle">Risas, paisajes y momentos que guardamos en el corazón</p>
 
   <div class="gallery-collage">
+    <!-- 1 FOTO GRANDE (Destacada 2x2) -->
     <div class="gallery-item featured">
-      <img src="/assets/Gale_1.jpg" alt="Momento especial" class="gallery-img">
+      <img src="/assets/Gale_1.jpg" alt="Aventura principal" class="gallery-img">
       <div class="gallery-overlay"><span>Ver foto</span></div>
     </div>
+
+    <!-- 1ª FOTO MEDIANA -->
     <div class="gallery-item">
-      <img src="/assets/Gale_2.jpg" alt="Las gatas" class="gallery-img">
+      <img src="/assets/Gale_2.jpg" alt="Paisaje y naturaleza" class="gallery-img">
       <div class="gallery-overlay"><span>Ver foto</span></div>
     </div>
+
+    <!-- 2ª FOTO MEDIANA -->
     <div class="gallery-item">
-      <img src="/assets/Gale_3.jpg" alt="Viajes" class="gallery-img">
+      <img src="/assets/Gale_3.jpg" alt="Momento juntos" class="gallery-img">
       <div class="gallery-overlay"><span>Ver foto</span></div>
     </div>
-    <div class="gallery-item">
-      <img src="/assets/Gale_4.jpg" alt="Mascotas" class="gallery-img">
-      <div class="gallery-overlay"><span>Ver foto</span></div>
+
+    <!-- 1º BLOQUE MINI-MOSAICO (4 fotos pequeñas) -->
+    <div class="gallery-mosaic-card">
+      <div class="gallery-item mini-item">
+        <img src="/assets/Gale_4.jpg" alt="Detalle 1" class="gallery-img">
+        <div class="gallery-overlay"><span>Ver</span></div>
+      </div>
+      <div class="gallery-item mini-item">
+        <img src="/assets/Gale_5.jpg" alt="Detalle 2" class="gallery-img">
+        <div class="gallery-overlay"><span>Ver</span></div>
+      </div>
+      <div class="gallery-item mini-item">
+        <img src="/assets/Gale_6.jpg" alt="Detalle 3" class="gallery-img">
+        <div class="gallery-overlay"><span>Ver</span></div>
+      </div>
+      <div class="gallery-item mini-item">
+        <img src="/assets/Gale_7.jpg" alt="Detalle 4" class="gallery-img">
+        <div class="gallery-overlay"><span>Ver</span></div>
+      </div>
     </div>
-    <div class="gallery-item">
-      <img src="/assets/Gale_5.jpg" alt="Juntos" class="gallery-img">
-      <div class="gallery-overlay"><span>Ver foto</span></div>
+
+    <!-- 2º BLOQUE MINI-MOSAICO (4 fotos pequeñas) -->
+    <div class="gallery-mosaic-card">
+      <div class="gallery-item mini-item">
+        <img src="/assets/Gale_8.jpg" alt="Detalle 5" class="gallery-img">
+        <div class="gallery-overlay"><span>Ver</span></div>
+      </div>
+      <div class="gallery-item mini-item">
+        <img src="/assets/Gale_9.jpg" alt="Detalle 6" class="gallery-img">
+        <div class="gallery-overlay"><span>Ver</span></div>
+      </div>
+      <div class="gallery-item mini-item">
+        <img src="/assets/Gale_10.jpg" alt="Detalle 7" class="gallery-img">
+        <div class="gallery-overlay"><span>Ver</span></div>
+      </div>
+      <div class="gallery-item mini-item">
+        <img src="/assets/Gale_11.jpg" alt="Detalle 8" class="gallery-img">
+        <div class="gallery-overlay"><span>Ver</span></div>
+      </div>
     </div>
+    <!-- CRÉDITO SUTIL AL FOTÓGRAFO -->
+    <div class="gallery-credits">
+      <p>📸 Fotografías por <a href="https://instagram.com/jac.fotografia_" target="_blank" rel="noopener">@jac.fotografia_</a></p>
+    </div>
+  </section>
   </div>
 </section>
 
@@ -359,6 +401,80 @@ document.querySelector('#app').innerHTML = `
     </div>
   </div>
 </section>
+
+<!-- SECCIÓN ITINERARIO / ORDEN DEL DÍA -->
+<section class="timeline-section reveal-on-scroll">
+  <div class="timeline-container">
+    <h2 class="section-title">Orden del Día</h2>
+    <p class="section-subtitle">Así celebraremos nuestro gran día</p>
+
+    <div class="timeline">
+      
+      <!-- ITEM 1: CEREMONIA -->
+      <div class="timeline-item">
+        <div class="timeline-marker">
+          <span class="timeline-icon">⛪</span>
+        </div>
+        <div class="timeline-content">
+          <span class="timeline-time">3:30 PM</span>
+          <h3 class="timeline-title">Ceremonia Religiosa</h3>
+          <p class="timeline-desc">Parroquia María Auxiliadora - La Plazuela</p>
+        </div>
+      </div>
+
+      <!-- ITEM 2: RECEPCIÓN -->
+      <div class="timeline-item">
+        <div class="timeline-marker">
+          <span class="timeline-icon">🥂</span>
+        </div>
+        <div class="timeline-content">
+          <span class="timeline-time">5:00 PM</span>
+          <h3 class="timeline-title">Llegada a la Recepción</h3>
+          <p class="timeline-desc">Bienvenida y cóctel en Hacienda La Milagrosa</p>
+        </div>
+      </div>
+
+      <!-- ITEM 3: CENA -->
+      <div class="timeline-item">
+        <div class="timeline-marker">
+          <span class="timeline-icon">🍽️</span>
+        </div>
+        <div class="timeline-content">
+          <span class="timeline-time">7:00 PM</span>
+          <h3 class="timeline-title">Cena & Brindis</h3>
+          <p class="timeline-desc">Compartiremos la mesa con la mejor compañía</p>
+        </div>
+      </div>
+
+      <!-- ITEM 4: FIESTA -->
+      <div class="timeline-item">
+        <div class="timeline-marker">
+          <span class="timeline-icon">🪩</span>
+        </div>
+        <div class="timeline-content">
+          <span class="timeline-time">8:00 PM</span>
+          <h3 class="timeline-title">¡A Bailar!</h3>
+          <p class="timeline-desc">Apertura de pista y fiesta hasta la madrugada</p>
+        </div>
+      </div>
+
+      <!-- ITEM 5: FIN DEL EVENTO -->
+      <div class="timeline-item">
+        <div class="timeline-marker">
+          <span class="timeline-icon">✨</span>
+        </div>
+        <div class="timeline-content">
+          <span class="timeline-time">12:00 AM</span>
+          <h3 class="timeline-title">Fin del Evento</h3>
+          <p class="timeline-desc">Cierre de una noche inolvidable</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
 
 <!-- 5. SECCIÓN DRESS CODE -->
 <section class="dresscode-section reveal-on-scroll">
@@ -484,6 +600,23 @@ document.querySelector('#app').innerHTML = `
           </button>
         </form>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. SECCIÓN LLUVIA DE SOBRES Y AGRADECIMIENTO -->
+<section class="closing-section reveal-on-scroll">
+  <div class="closing-container">
+    <div class="closing-card">
+      <div class="closing-icon">✉️</div>
+      <h2 class="section-title">El Mejor Regalo es tu Presencia</h2>
+      <p class="closing-text">
+        Si deseas tener un detalle adicional con nosotros para acompañar el inicio de nuestro hogar, 
+        contaremos con un buzón de <strong>lluvia de sobres</strong> el día del evento.
+      </p>
+      <div class="closing-divider"></div>
+      <p class="closing-subtext">¡Gracias por acompañarnos a celebrar el amor!</p>
+      <p class="closing-signature">Carolina & Juan</p>
     </div>
   </div>
 </section>
