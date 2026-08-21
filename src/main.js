@@ -566,6 +566,14 @@ document.querySelector('#app').innerHTML = `
         <button type="submit" class="interactive-btn submit-btn rsvp-submit">
           <span>Confirmar Asistencia</span>
         </button>
+
+        <!-- NOTA DE EVENTO SOLO ADULTOS -->
+        <div class="adults-only-note">
+          <span class="note-icon">✨</span>
+          <p>
+            Queremos que este día sea un momento de descanso y fiesta para todos. Por esta razón, hemos planeado una celebración <strong>exclusivamente para adultos</strong>. ¡Agradecemos de corazón su comprensión!
+          </p>
+        </div>
       </form>
     </div>
   </div>
