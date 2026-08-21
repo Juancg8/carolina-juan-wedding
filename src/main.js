@@ -159,7 +159,7 @@ const calendarSvg = `
 ========================================= */
 document.querySelector('#app').innerHTML = `
 
-<audio id="wedding-music" loop src="/assets/cancion1.mp3"></audio>
+<audio id="wedding-music" loop src="/assets/cancion.mp3"></audio>
 
 <button id="music-btn" class="music-toggle-btn is-hidden" aria-label="Control de música">
   <span class="music-icon icon-play">🎵</span>
@@ -373,7 +373,7 @@ document.querySelector('#app').innerHTML = `
         <div class="event-icon">⛪</div>
         <h3 class="event-type">Ceremonia Religiosa</h3>
         <div class="event-divider"></div>
-        <p class="event-time"><strong>Hora:</strong> 3:30 PM</p>
+        <p class="event-time"><strong>Hora:</strong> 3:00 PM</p>
         <h4 class="event-place">Iglesia María Auxiliadora</h4>
         <p class="event-address">La Plazuela, Cogua</p>
         
@@ -431,7 +431,7 @@ document.querySelector('#app').innerHTML = `
           <span class="timeline-icon">⛪</span>
         </div>
         <div class="timeline-content">
-          <span class="timeline-time">3:30 PM</span>
+          <span class="timeline-time">3:00 PM</span>
           <h3 class="timeline-title">Ceremonia Religiosa</h3>
           <p class="timeline-desc">Parroquia María Auxiliadora - La Plazuela</p>
         </div>
@@ -589,10 +589,10 @@ document.querySelector('#app').innerHTML = `
       <div class="interactive-card">
         <div class="card-icon">📸</div>
         <h3 class="card-title">Comparte tus Fotos</h3>
-        <p class="card-desc">Escanea el código QR o haz clic en el botón para subir tus fotos y videos al álbum compartido en Google Drive.</p>
+        <p class="card-desc">Escanea el código QR o haz clic en el botón para subir tus fotos y videos al álbum compartido en Google Drive. (Próximamente)</p>
         
         <div class="qr-frame">
-          <img src="/assets/qr-drive.png" alt="Código QR Google Drive" class="qr-image">
+          <img src="/assets/qr-drive.png" alt="Próximamente" class="qr-image">
         </div>
 
         <a href="https://drive.google.com" target="_blank" rel="noopener" class="interactive-btn">
@@ -715,7 +715,7 @@ envelope.addEventListener('click', openInvitation)
 /* =========================================
    CUENTA REGRESIVA
 ========================================= */
-const weddingDate = new Date('2026-10-17T16:00:00').getTime()
+const weddingDate = new Date('2026-10-17T15:00:00').getTime()
 
 function updateCountdown() {
   const now = new Date().getTime()
