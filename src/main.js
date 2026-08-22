@@ -304,8 +304,21 @@ document.querySelector('#app').innerHTML = `
         <div class="gallery-overlay"><span>Ver</span></div>
       </div>
     </div>
-  </section>
   </div>
+
+  <!-- BLOQUE DE CIERRE RECTANGULAR CON MASCOTAS AL FINAL DE LA GALERÍA -->
+  <div class="gallery-mascots-signoff" style="margin-top: 35px; text-align: center;">
+    <div class="gallery-item" style="display: inline-block; cursor: pointer; max-width: 320px; width: 100%;">
+      <div class="mascots-photo-wrapper" style="width: 100%; height: 220px; margin: 0 auto 12px; border-radius: 12px; overflow: hidden; border: 3px solid #ad8750; box-shadow: 0 6px 16px rgba(0,0,0,0.12);">
+        <img src="/assets/Mascotas.jpg" alt="Nuestras mascotas" class="gallery-img" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="gallery-overlay" style="border-radius: 12px;"><span>Ver foto completa</span></div>
+    </div>
+    <p class="mascots-text" style="font-size: 0.95rem; color: #4b5563; margin: 8px auto 0; max-width: 400px; font-style: italic;">
+      ¡Nuestras mascotas nos acompañan de corazón! 🐾
+    </p>
+  </div>
+
   <!-- CRÉDITO SUTIL CON ÍCONO DE INSTAGRAM -->
   <div class="gallery-credits">
     <p>
@@ -390,7 +403,7 @@ document.querySelector('#app').innerHTML = `
         <div class="event-icon">🥂</div>
         <h3 class="event-type">Recepción</h3>
         <div class="event-divider"></div>
-        <p class="event-time"><strong>Hora:</strong> 5:00 PM</p>
+        <p class="event-time"><strong>Hora:</strong> 4:30 PM</p>
         <h4 class="event-place">Hacienda La Milagrosa</h4>
         <p class="event-address">Cogua, Cundinamarca</p>
         
@@ -443,7 +456,7 @@ document.querySelector('#app').innerHTML = `
           <span class="timeline-icon">🥂</span>
         </div>
         <div class="timeline-content">
-          <span class="timeline-time">5:00 PM</span>
+          <span class="timeline-time">4:30 PM</span>
           <h3 class="timeline-title">Llegada a la Recepción</h3>
           <p class="timeline-desc">Bienvenida y cóctel en Hacienda La Milagrosa</p>
         </div>
@@ -488,8 +501,6 @@ document.querySelector('#app').innerHTML = `
     </div>
   </div>
 </section>
-
-
 
 <!-- 5. SECCIÓN DRESS CODE -->
 <section class="dresscode-section reveal-on-scroll">
@@ -842,6 +853,7 @@ if (musicForm) {
     }
   })
 }
+
 /* =========================================
    INTEGRACIÓN SUPABASE (RSVP & SOBRE)
 ========================================= */
