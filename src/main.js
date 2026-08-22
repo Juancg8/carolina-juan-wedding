@@ -306,15 +306,15 @@ document.querySelector('#app').innerHTML = `
     </div>
   </div>
 
-  <!-- BLOQUE DE CIERRE RECTANGULAR CON MASCOTAS AL FINAL DE LA GALERÍA -->
-  <div class="gallery-mascots-signoff" style="margin-top: 35px; text-align: center;">
-    <div class="gallery-item" style="display: inline-block; cursor: pointer; max-width: 320px; width: 100%;">
-      <div class="mascots-photo-wrapper" style="width: 100%; height: 220px; margin: 0 auto 12px; border-radius: 12px; overflow: hidden; border: 3px solid #ad8750; box-shadow: 0 6px 16px rgba(0,0,0,0.12);">
-        <img src="/assets/Mascotas.jpg" alt="Nuestras mascotas" class="gallery-img" style="width: 100%; height: 100%; object-fit: cover;">
+  <!-- BLOQUE DE CIERRE RECTANGULAR AJUSTADO PARA MÓVILES -->
+  <div class="gallery-mascots-signoff" style="margin-top: 45px; margin-bottom: 30px; text-align: center; clear: both; width: 100%;">
+    <div class="gallery-item" style="display: inline-block; cursor: pointer; max-width: 260px; width: 100%;">
+      <div class="mascots-photo-wrapper" style="width: 100%; height: 180px; margin: 0 auto 10px; border-radius: 12px; overflow: hidden; border: 2.5px solid #ad8750; box-shadow: 0 4px 12px rgba(0,0,0,0.12);">
+        <img src="/assets/Mascotas.jpg" alt="Nuestras mascotas" class="gallery-img" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       </div>
       <div class="gallery-overlay" style="border-radius: 12px;"><span>Ver foto completa</span></div>
     </div>
-    <p class="mascots-text" style="font-size: 0.95rem; color: #4b5563; margin: 8px auto 0; max-width: 400px; font-style: italic;">
+    <p class="mascots-text" style="font-size: 0.9rem; color: #4b5563; margin: 6px auto 0; max-width: 300px; font-style: italic;">
       ¡Nuestras mascotas nos acompañan de corazón! 🐾
     </p>
   </div>
