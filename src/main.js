@@ -306,19 +306,19 @@ document.querySelector('#app').innerHTML = `
     </div>
   </div>
 
-  <!-- BLOQUE DE CIERRE RECTANGULAR AJUSTADO PARA MÓVILES -->
-  <div class="gallery-mascots-signoff" style="margin-top: 45px; margin-bottom: 30px; text-align: center; clear: both; width: 100%;">
-    <div class="gallery-item" style="display: inline-block; cursor: pointer; max-width: 260px; width: 100%;">
-      <div class="mascots-photo-wrapper" style="width: 100%; height: 180px; margin: 0 auto 10px; border-radius: 12px; overflow: hidden; border: 2.5px solid #ad8750; box-shadow: 0 4px 12px rgba(0,0,0,0.12);">
+ <!-- BLOQUE DE CIERRE: NUESTRAS MASCOTAS (INDEPENDIENTE DEL GRID) -->
+  <div class="mascots-section-wrapper" style="clear: both; width: 100%; margin-top: 50px; margin-bottom: 25px; text-align: center; position: relative; z-index: 2;">
+    <div class="gallery-item" style="display: block; margin: 0 auto; max-width: 240px; width: 90%; cursor: pointer;">
+      <div class="mascots-photo-wrapper" style="width: 100%; height: 160px; border-radius: 12px; overflow: hidden; border: 2px solid #ad8750; box-shadow: 0 4px 12px rgba(0,0,0,0.12);">
         <img src="/assets/Mascotas.jpg" alt="Nuestras mascotas" class="gallery-img" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       </div>
       <div class="gallery-overlay" style="border-radius: 12px;"><span>Ver foto completa</span></div>
     </div>
-    <p class="mascots-text" style="font-size: 0.9rem; color: #4b5563; margin: 6px auto 0; max-width: 300px; font-style: italic;">
+    <p class="mascots-text" style="font-size: 0.9rem; color: #4b5563; margin-top: 10px; font-style: italic;">
       ¡Nuestras mascotas nos acompañan de corazón! 🐾
     </p>
   </div>
-
+  
   <!-- CRÉDITO SUTIL CON ÍCONO DE INSTAGRAM -->
   <div class="gallery-credits">
     <p>
