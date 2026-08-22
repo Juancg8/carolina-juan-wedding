@@ -304,8 +304,8 @@ document.querySelector('#app').innerHTML = `
         <div class="gallery-overlay"><span>Ver</span></div>
       </div>
     </div>
+  </section>
   </div>
-
   <!-- CRÉDITO SUTIL CON ÍCONO DE INSTAGRAM -->
   <div class="gallery-credits">
     <p>
@@ -316,21 +316,6 @@ document.querySelector('#app').innerHTML = `
         </svg>
         @jac.fotografia_
       </a>
-    </p>
-  </div>
-</section>
-
-<!-- SECCIÓN NUEVA Y DEDICADA: NUESTRAS MASCOTAS -->
-<section class="mascots-section reveal-on-scroll" style="padding: 30px 20px; text-align: center;">
-  <div style="max-width: 260px; margin: 0 auto;">
-    <div class="gallery-item" style="cursor: pointer; width: 100%;">
-      <div style="width: 100%; height: 170px; border-radius: 12px; overflow: hidden; border: 2.5px solid #ad8750; box-shadow: 0 4px 14px rgba(0,0,0,0.12);">
-        <img src="/assets/Mascotas.jpg" alt="Nuestras mascotas" class="gallery-img" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-      </div>
-      <div class="gallery-overlay" style="border-radius: 12px;"><span>Ver foto completa</span></div>
-    </div>
-    <p style="font-size: 0.95rem; color: #4b5563; margin-top: 12px; font-style: italic; font-weight: 500;">
-      ¡Nuestras mascotas nos acompañan de corazón! 🐾
     </p>
   </div>
 </section>
@@ -503,6 +488,8 @@ document.querySelector('#app').innerHTML = `
     </div>
   </div>
 </section>
+
+
 
 <!-- 5. SECCIÓN DRESS CODE -->
 <section class="dresscode-section reveal-on-scroll">
@@ -855,7 +842,6 @@ if (musicForm) {
     }
   })
 }
-
 /* =========================================
    INTEGRACIÓN SUPABASE (RSVP & SOBRE)
 ========================================= */
