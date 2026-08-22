@@ -306,19 +306,6 @@ document.querySelector('#app').innerHTML = `
     </div>
   </div>
 
- <!-- BLOQUE DE CIERRE: NUESTRAS MASCOTAS (INDEPENDIENTE DEL GRID) -->
-  <div class="mascots-section-wrapper" style="clear: both; width: 100%; margin-top: 50px; margin-bottom: 25px; text-align: center; position: relative; z-index: 2;">
-    <div class="gallery-item" style="display: block; margin: 0 auto; max-width: 240px; width: 90%; cursor: pointer;">
-      <div class="mascots-photo-wrapper" style="width: 100%; height: 160px; border-radius: 12px; overflow: hidden; border: 2px solid #ad8750; box-shadow: 0 4px 12px rgba(0,0,0,0.12);">
-        <img src="/assets/Mascotas.jpg" alt="Nuestras mascotas" class="gallery-img" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-      </div>
-      <div class="gallery-overlay" style="border-radius: 12px;"><span>Ver foto completa</span></div>
-    </div>
-    <p class="mascots-text" style="font-size: 0.9rem; color: #4b5563; margin-top: 10px; font-style: italic;">
-      ¡Nuestras mascotas nos acompañan de corazón! 🐾
-    </p>
-  </div>
-  
   <!-- CRÉDITO SUTIL CON ÍCONO DE INSTAGRAM -->
   <div class="gallery-credits">
     <p>
@@ -329,6 +316,21 @@ document.querySelector('#app').innerHTML = `
         </svg>
         @jac.fotografia_
       </a>
+    </p>
+  </div>
+</section>
+
+<!-- SECCIÓN NUEVA Y DEDICADA: NUESTRAS MASCOTAS -->
+<section class="mascots-section reveal-on-scroll" style="padding: 30px 20px; text-align: center;">
+  <div style="max-width: 260px; margin: 0 auto;">
+    <div class="gallery-item" style="cursor: pointer; width: 100%;">
+      <div style="width: 100%; height: 170px; border-radius: 12px; overflow: hidden; border: 2.5px solid #ad8750; box-shadow: 0 4px 14px rgba(0,0,0,0.12);">
+        <img src="/assets/Mascotas.jpg" alt="Nuestras mascotas" class="gallery-img" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      </div>
+      <div class="gallery-overlay" style="border-radius: 12px;"><span>Ver foto completa</span></div>
+    </div>
+    <p style="font-size: 0.95rem; color: #4b5563; margin-top: 12px; font-style: italic; font-weight: 500;">
+      ¡Nuestras mascotas nos acompañan de corazón! 🐾
     </p>
   </div>
 </section>
