@@ -518,7 +518,7 @@ document.querySelector('#app').innerHTML = `
           <img src="/assets/DressCodeHombre.jpg" alt="Milo en traje formal" class="dresscode-img">
         </div>
         <h3 class="dresscode-gender">Hombres</h3>
-        <p class="dresscode-desc">Traje Formal / Elegante <br><em>(¡Así de elegante como Milo!)</em></p>
+        <p class="dresscode-desc">Formal / Elegante / Corbata <br><em>(¡Así de elegante como Milo!)</em></p>
       </div>
 
       <div class="dresscode-card">
