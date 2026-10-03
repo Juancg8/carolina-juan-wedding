@@ -157,7 +157,9 @@ const calendarSvg = `
 /* =========================================
    HTML PRINCIPAL
 ========================================= */
-document.querySelector('#app').innerHTML = `
+const appContainer = document.querySelector('#app')
+if (appContainer) {
+  appContainer.innerHTML = `
 
 <audio id="wedding-music" loop src="/assets/cancion.mp3"></audio>
 
@@ -304,8 +306,8 @@ document.querySelector('#app').innerHTML = `
         <div class="gallery-overlay"><span>Ver</span></div>
       </div>
     </div>
-  </section>
   </div>
+
   <!-- CRÉDITO SUTIL CON ÍCONO DE INSTAGRAM -->
   <div class="gallery-credits">
     <p>
@@ -504,8 +506,6 @@ document.querySelector('#app').innerHTML = `
   </div>
 </section>
 
-
-
 <!-- 5. SECCIÓN DRESS CODE -->
 <section class="dresscode-section reveal-on-scroll">
   <div class="dresscode-container">
@@ -665,6 +665,7 @@ document.querySelector('#app').innerHTML = `
   <img id="lightbox-img" class="lightbox-content" src="" alt="Foto ampliada">
 </div>
 `
+}
 
 /* =========================================
    LÓGICA DE MÚSICA Y APERTURA DE SOBRE
@@ -679,39 +680,45 @@ const musicBtn = document.getElementById('music-btn')
 let isPlaying = false
 
 function playMusic() {
+  if (!audio) return
   audio.play().then(() => {
     isPlaying = true
-    musicBtn.classList.remove('is-hidden')
-    musicBtn.classList.add('is-playing')
+    if (musicBtn) {
+      musicBtn.classList.remove('is-hidden')
+      musicBtn.classList.add('is-playing')
+    }
   }).catch(() => {
-    musicBtn.classList.remove('is-hidden')
+    if (musicBtn) musicBtn.classList.remove('is-hidden')
   })
 }
 
 function toggleMusic() {
+  if (!audio) return
   if (isPlaying) {
     audio.pause()
-    musicBtn.classList.remove('is-playing')
+    if (musicBtn) musicBtn.classList.remove('is-playing')
     isPlaying = false
   } else {
     audio.play().then(() => {
-      musicBtn.classList.add('is-playing')
+      if (musicBtn) musicBtn.classList.add('is-playing')
       isPlaying = true
     })
   }
 }
 
-musicBtn.addEventListener('click', toggleMusic)
+if (musicBtn) {
+  musicBtn.addEventListener('click', toggleMusic)
+}
 
 function openInvitation() {
-  if (openingScreen.classList.contains('is-opening')) return
+  if (!openingScreen || openingScreen.classList.contains('is-opening')) return
 
   playMusic()
 
   openingScreen.classList.add('is-opening')
-  envelope.classList.add('is-open')
-  envelopeWrapper.classList.add('is-open')
-  openButton.classList.add('is-hidden')
+  if (envelope) envelope.classList.add('is-open')
+  if (envelopeWrapper) envelopeWrapper.classList.add('is-open')
+  if (openButton) openButton.classList.add('is-hidden')
 
   setTimeout(() => {
     document.body.classList.remove('invitation-locked')
@@ -724,8 +731,8 @@ function openInvitation() {
   }, 600)
 }
 
-openButton.addEventListener('click', openInvitation)
-envelope.addEventListener('click', openInvitation)
+if (openButton) openButton.addEventListener('click', openInvitation)
+if (envelope) envelope.addEventListener('click', openInvitation)
 
 /* =========================================
    CUENTA REGRESIVA
@@ -736,8 +743,9 @@ function updateCountdown() {
   const now = new Date().getTime()
   const diff = weddingDate - now
 
+  const grid = document.querySelector('.countdown-grid')
   if (diff <= 0) {
-    document.querySelector('.countdown-grid').innerHTML = '<p class="cd-finished">¡Hoy es nuestro gran día!</p>'
+    if (grid) grid.innerHTML = '<p class="cd-finished">¡Hoy es nuestro gran día!</p>'
     return
   }
 
@@ -746,10 +754,15 @@ function updateCountdown() {
   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
   const seconds = Math.floor((diff % (1000 * 60)) / 1000)
 
-  document.getElementById('cd-days').innerText = days < 10 ? `0${days}` : days
-  document.getElementById('cd-hours').innerText = hours < 10 ? `0${hours}` : hours
-  document.getElementById('cd-minutes').innerText = minutes < 10 ? `0${minutes}` : minutes
-  document.getElementById('cd-seconds').innerText = seconds < 10 ? `0${seconds}` : seconds
+  const elDays = document.getElementById('cd-days')
+  const elHours = document.getElementById('cd-hours')
+  const elMinutes = document.getElementById('cd-minutes')
+  const elSeconds = document.getElementById('cd-seconds')
+
+  if (elDays) elDays.innerText = days < 10 ? `0${days}` : days
+  if (elHours) elHours.innerText = hours < 10 ? `0${hours}` : hours
+  if (elMinutes) elMinutes.innerText = minutes < 10 ? `0${minutes}` : minutes
+  if (elSeconds) elSeconds.innerText = seconds < 10 ? `0${seconds}` : seconds
 }
 
 setInterval(updateCountdown, 1000)
@@ -857,6 +870,7 @@ if (musicForm) {
     }
   })
 }
+
 /* =========================================
    INTEGRACIÓN SUPABASE (RSVP & SOBRE)
 ========================================= */
@@ -901,6 +915,17 @@ async function cargarDatosInvitacion() {
   }
 
   renderizarChecklistRSVP(familia.invitados)
+
+  if (window.location.hash === '#confirmacion') {
+    openInvitation()
+
+    setTimeout(() => {
+      const confirmSection = document.getElementById('confirmacion')
+      if (confirmSection) {
+        confirmSection.scrollIntoView({ behavior: 'smooth' })
+      }
+    }, 700)
+  }
 }
 
 function renderizarChecklistRSVP(listaInvitados) {
@@ -987,4 +1012,5 @@ if (rsvpForm) {
   })
 }
 
-document.addEventListener('DOMContentLoaded', cargarDatosInvitacion)
+// Ejecución directa al cargar la app
+cargarDatosInvitacion()
