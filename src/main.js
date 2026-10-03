@@ -903,62 +903,6 @@ async function cargarDatosInvitacion() {
   renderizarChecklistRSVP(familia.invitados)
 }
 
-async function cargarDatosInvitacion() {
-  const container = document.getElementById('checklist-container')
-
-  if (!familiaSlug) {
-    if (container) {
-      container.innerHTML = `
-        <div class="rsvp-alert info">
-          ℹ️ Estás viendo una vista previa de la invitación. Para confirmar asistencia, usa tu enlace personalizado.
-        </div>
-      `
-    }
-    return
-  }
-
-  const { data: familia, error } = await supabase
-    .from('familias')
-    .select('id, nombre_sobre, invitados(id, nombre_completo, asiste)')
-    .eq('slug', familiaSlug)
-    .single()
-
-  if (error || !familia) {
-    console.error('No se encontró información para esta familia:', error)
-    if (container) {
-      container.innerHTML = `
-        <div class="rsvp-alert error">
-          ⚠️ No pudimos encontrar tu lista de pases. Por favor verifica el enlace enviado.
-        </div>
-      `
-    }
-    return
-  }
-
-  const envelopeLabel = document.getElementById('envelope-guest-name')
-  if (envelopeLabel) {
-    envelopeLabel.innerText = familia.nombre_sobre
-  }
-
-  renderizarChecklistRSVP(familia.invitados)
-
-  // -------------------------------------------------------------
-  // NUEVO: Abrir sobre y hacer scroll al formulario si incluye #confirmacion
-  // -------------------------------------------------------------
-  if (window.location.hash === '#confirmacion') {
-    // Abre la invitación imitando el clic
-    openInvitation()
-
-    // Realiza el scroll al formulario tras remover la pantalla inicial
-    setTimeout(() => {
-      const confirmSection = document.getElementById('confirmacion')
-      if (confirmSection) {
-        confirmSection.scrollIntoView({ behavior: 'smooth' })
-      }
-    }, 700)
-  }
-}
-
 function renderizarChecklistRSVP(listaInvitados) {
   const container = document.getElementById('checklist-container')
   if (!container) return
