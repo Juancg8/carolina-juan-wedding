@@ -560,7 +560,7 @@ document.querySelector('#app').innerHTML = `
 </section>
 
 <!-- 6. SECCIÓN CONFIRMACIÓN DE ASISTENCIA (RSVP) -->
-<section class="rsvp-section reveal-on-scroll">
+<section id="confirmacion" class="rsvp-section reveal-on-scroll">
   <div class="rsvp-container">
     <div class="rsvp-card">
       <div class="rsvp-header">
