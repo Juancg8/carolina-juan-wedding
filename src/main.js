@@ -1,79 +1,69 @@
 import './style.css'
 import { supabase } from './supabaseClient.js'
 
-document.body.classList.add('invitation-locked')
+/* =========================================
+   PARÁMETROS DE URL Y MODO DE VISTA
+========================================= */
+const params = new URLSearchParams(window.location.search)
+const familiaSlug = params.get('f')
+const esSoloConfirmacion = window.location.hash === '#confirmacion'
 
 /* =========================================
-   SOBRE SVG
+   PLANTILLAS HTML
 ========================================= */
+
+// 1. SOBRE Y CALENDARIO SVG (REUTILIZABLES)
 const envelopeSvg = `
-<svg
-  class="envelope-svg"
-  viewBox="0 0 800 520"
-  xmlns="http://www.w3.org/2000/svg"
-  aria-label="Sobre de invitación"
-  role="img"
->
+<svg class="envelope-svg" viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" aria-label="Sobre de invitación" role="img">
   <defs>
     <filter id="envelope-shadow" x="-20%" y="-20%" width="140%" height="150%">
       <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#26303b" flood-opacity="0.18"/>
     </filter>
-
     <filter id="wax-shadow" x="-30%" y="-30%" width="160%" height="160%">
       <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#26303b" flood-opacity="0.32"/>
     </filter>
-
     <linearGradient id="paper-gradient" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#f8f5eb"/>
       <stop offset="100%" stop-color="#eee9da"/>
     </linearGradient>
-
     <linearGradient id="flap-gradient" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#faf7ef"/>
       <stop offset="100%" stop-color="#e9e4d6"/>
     </linearGradient>
-
     <radialGradient id="wax-gradient" cx="35%" cy="30%" r="75%">
       <stop offset="0%" stop-color="#e68a43"/>
       <stop offset="45%" stop-color="#c94e17"/>
       <stop offset="85%" stop-color="#9e3b12"/>
       <stop offset="100%" stop-color="#6e2305"/>
     </radialGradient>
-
     <radialGradient id="wax-highlight" cx="30%" cy="25%" r="50%">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
-
   <style>
     .svg-flap-text { font-family: 'Cormorant Garamond', serif; font-weight: 600; fill: #0b3048; letter-spacing: 4px; font-size: 20px; }
     .svg-wax-text { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-style: italic; fill: #fff5e4; font-size: 24px; }
     .svg-wax-text-shadow { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-style: italic; fill: #4d1804; font-size: 24px; }
   </style>
-
   <g class="envelope-art" filter="url(#envelope-shadow)">
     <rect class="envelope-paper" x="20" y="20" width="760" height="480" rx="3" fill="url(#paper-gradient)"/>
     <path class="envelope-bottom" d="M 20 500 L 400 270 L 780 500 Z" fill="#f3efe2"/>
     <path class="envelope-side envelope-left" d="M 20 20 L 400 270 L 20 500 Z" fill="#eee9da" opacity="0.6"/>
     <path class="envelope-side envelope-right" d="M 780 20 L 400 270 L 780 500 Z" fill="#e9e4d6" opacity="0.6"/>
     <path class="envelope-line" d="M 20 500 L 400 270 L 780 500" fill="none" stroke="#36566f" stroke-opacity="0.15" stroke-width="1.2"/>
-
     <g class="envelope-flap-svg">
       <path d="M 20 20 L 780 20 L 400 292 Z" fill="#0b3048" opacity="0.06"/>
       <path class="envelope-flap" d="M 20 20 L 780 20 L 400 285 Z" fill="url(#flap-gradient)" stroke="#36566f" stroke-opacity="0.15" stroke-width="1"/>
-
       <g class="envelope-text-svg">
         <text x="400" y="95" text-anchor="middle" class="svg-flap-text">ESTÁS INVITADO A</text>
         <text x="400" y="130" text-anchor="middle" class="svg-flap-text">ALGO MUY ESPECIAL</text>
       </g>
-
       <g transform="translate(400, 165)" opacity="0.75">
         <line x1="-70" y1="0" x2="-20" y2="0" stroke="#ad8750" stroke-width="1"/>
         <circle cx="0" cy="0" r="2.5" fill="#ad8750"/>
         <line x1="20" y1="0" x2="70" y2="0" stroke="#ad8750" stroke-width="1"/>
       </g>
-
       <g class="wax-seal-svg" transform="translate(400, 285)" filter="url(#wax-shadow)">
         <path d="M -6 -50 C 20 -54, 46 -44, 53 -22 C 61 -2, 52 28, 42 45 C 24 61, -12 58, -36 47 C -56 37, -60 10, -54 -16 C -48 -38, -28 -48, -6 -50 Z" fill="url(#wax-gradient)"/>
         <path d="M -6 -50 C 20 -54, 46 -44, 53 -22 C 61 -2, 52 28, 42 45 Z" fill="url(#wax-highlight)"/>
@@ -87,9 +77,6 @@ const envelopeSvg = `
 </svg>
 `
 
-/* =========================================
-   CALENDARIO OCTUBRE 2026 EN SVG
-========================================= */
 const calendarSvg = `
 <svg class="calendar-svg" viewBox="0 0 350 320" xmlns="http://www.w3.org/2000/svg">
   <style>
@@ -98,10 +85,8 @@ const calendarSvg = `
     .cal-num { font-family: sans-serif; font-size: 13px; fill: #4a5568; text-anchor: middle; }
     .cal-num-marked { font-family: sans-serif; font-size: 14px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
   </style>
-
   <text x="175" y="30" text-anchor="middle" class="cal-header">OCTUBRE 2026</text>
   <line x1="40" y1="45" x2="310" y2="45" stroke="#ad8750" stroke-width="1" opacity="0.4"/>
-
   <g transform="translate(0, 65)">
     <text x="45" y="0" text-anchor="middle" class="cal-day-name">DOM</text>
     <text x="88" y="0" text-anchor="middle" class="cal-day-name">LUN</text>
@@ -111,12 +96,10 @@ const calendarSvg = `
     <text x="260" y="0" text-anchor="middle" class="cal-day-name">VIE</text>
     <text x="303" y="0" text-anchor="middle" class="cal-day-name">SÁB</text>
   </g>
-
   <g transform="translate(0, 95)">
     <text x="217" y="0" class="cal-num">1</text>
     <text x="260" y="0" class="cal-num">2</text>
     <text x="303" y="0" class="cal-num">3</text>
-
     <text x="45" y="35" class="cal-num">4</text>
     <text x="88" y="35" class="cal-num">5</text>
     <text x="131" y="35" class="cal-num">6</text>
@@ -124,17 +107,14 @@ const calendarSvg = `
     <text x="217" y="35" class="cal-num">8</text>
     <text x="260" y="35" class="cal-num">9</text>
     <text x="303" y="35" class="cal-num">10</text>
-
     <text x="45" y="70" class="cal-num">11</text>
     <text x="88" y="70" class="cal-num">12</text>
     <text x="131" y="70" class="cal-num">13</text>
     <text x="174" y="70" class="cal-num">14</text>
     <text x="217" y="70" class="cal-num">15</text>
     <text x="260" y="70" class="cal-num">16</text>
-    
     <circle cx="303" cy="65" r="15" fill="#c94e17" />
     <text x="303" y="70" class="cal-num-marked">17</text>
-
     <text x="45" y="105" class="cal-num">18</text>
     <text x="88" y="105" class="cal-num">19</text>
     <text x="131" y="105" class="cal-num">20</text>
@@ -142,7 +122,6 @@ const calendarSvg = `
     <text x="217" y="105" class="cal-num">22</text>
     <text x="260" y="105" class="cal-num">23</text>
     <text x="303" y="105" class="cal-num">24</text>
-
     <text x="45" y="140" class="cal-num">25</text>
     <text x="88" y="140" class="cal-num">26</text>
     <text x="131" y="140" class="cal-num">27</text>
@@ -154,13 +133,55 @@ const calendarSvg = `
 </svg>
 `
 
-/* =========================================
-   HTML PRINCIPAL
-========================================= */
-const appContainer = document.querySelector('#app')
-if (appContainer) {
-  appContainer.innerHTML = `
+// 2. VISTA EXCLUSIVA SOLO CONFIRMACIÓN
+const htmlSoloConfirmacion = `
+<main class="only-rsvp-page" style="min-height: 100vh; padding: 40px 15px; display: flex; align-items: center; justify-content: center;">
+  <section id="confirmacion" class="rsvp-section is-visible" style="width: 100%; max-width: 600px; margin: 0 auto;">
+    <div class="rsvp-container">
+      <div class="rsvp-card">
+        <div class="rsvp-header" style="text-align: center; margin-bottom: 25px;">
+          <div class="rsvp-icon" style="font-size: 2.5rem; margin-bottom: 10px;">✉️</div>
+          <h2 class="section-title">Confirmación de Asistencia</h2>
+          <p class="section-subtitle" style="margin-top: 8px;">Por favor confirma quiénes nos acompañarán este día:</p>
+          <div class="guest-envelope-title" style="margin-top: 15px; font-size: 1.2rem; color: #ad8750; font-weight: 600;">
+            <span id="envelope-guest-name"></span>
+          </div>
+        </div>
 
+        <form id="rsvp-form" class="rsvp-form">
+          <div id="checklist-container" class="checklist-container">
+            <div class="rsvp-loading" style="text-align: center; padding: 20px;">
+              <span class="spinner"></span>
+              <p>Cargando tus pases de entrada...</p>
+            </div>
+          </div>
+
+          <button type="submit" class="interactive-btn submit-btn rsvp-submit" style="margin-top: 25px;">
+            <span>Confirmar Asistencia</span>
+          </button>
+
+          <div class="adults-only-note" style="margin-top: 25px; text-align: center; font-size: 0.9rem; color: #6b7280;">
+            <span class="note-icon">✨</span>
+            <p>
+              Queremos que este día sea un momento de descanso y fiesta para todos. Por esta razón, hemos planeado una celebración <strong>exclusivamente para adultos</strong>. ¡Agradecemos de corazón su comprensión!
+            </p>
+          </div>
+        </form>
+
+        <!-- ENLACE OPCIONAL PARA VER INVITACIÓN COMPLETA -->
+        <div style="text-align: center; margin-top: 20px;">
+          <a href="${window.location.pathname}${window.location.search}" style="color: #ad8750; text-decoration: underline; font-size: 0.9rem;">
+            Ver tarjeta de invitación completa 💌
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+`
+
+// 3. VISTA COMPLETA (INCLUYE TODAS LAS SECCIONES)
+const htmlInvitacionCompleta = `
 <audio id="wedding-music" loop src="/assets/cancion.mp3"></audio>
 
 <button id="music-btn" class="music-toggle-btn is-hidden" aria-label="Control de música">
@@ -168,7 +189,6 @@ if (appContainer) {
   <span class="music-icon icon-pause">⏸</span>
 </button>
 
-<!-- PANTALLA INICIAL SOBRE -->
 <section class="opening-screen">
   <div class="monogram" aria-label="Carolina y Juan">
     <span>J</span><small>&</small><span>C</span>
@@ -195,21 +215,16 @@ if (appContainer) {
   <button class="open-button" type="button">Abrir invitación</button>
 </section>
 
-<!-- 1. SECCIÓN HERO -->
 <section class="hero-section reveal-on-scroll">
   <div class="hero-content">
-
     <div class="parents-section">
       <span class="parents-main-label">Con la bendición de nuestros padres</span>
-
       <div class="parents-block">
         <div class="parents-column">
           <p class="parent-name">Gabriel Carvajal Martínez</p>
           <p class="parent-name">Luz Amanda Gómez Arismendy</p>
         </div>
-
         <div class="parents-divider"></div>
-
         <div class="parents-column">
           <p class="parent-name">Julio Eduardo Santana Villarraga ✝️</p>
           <p class="parent-name">Luz Mery Forero Rios</p>
@@ -239,35 +254,26 @@ if (appContainer) {
         </svg>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- 2. SECCIÓN GALERÍA DE FOTOS -->
 <section class="gallery-section reveal-on-scroll">
   <h2 class="section-title">Nuestras Mejores Aventuras</h2>
   <p class="section-subtitle">Risas, paisajes y momentos que guardamos en el corazón</p>
 
   <div class="gallery-collage">
-    <!-- 1 FOTO GRANDE (Destacada 2x2) -->
     <div class="gallery-item featured">
       <img src="/assets/Gale_1.jpg" alt="Aventura principal" class="gallery-img">
       <div class="gallery-overlay"><span>Ver foto</span></div>
     </div>
-
-    <!-- 1ª FOTO MEDIANA -->
     <div class="gallery-item">
       <img src="/assets/Gale_2.jpg" alt="Paisaje y naturaleza" class="gallery-img">
       <div class="gallery-overlay"><span>Ver foto</span></div>
     </div>
-
-    <!-- 2ª FOTO MEDIANA -->
     <div class="gallery-item">
       <img src="/assets/Gale_3.jpg" alt="Momento juntos" class="gallery-img">
       <div class="gallery-overlay"><span>Ver foto</span></div>
     </div>
-
-    <!-- 1º BLOQUE MINI-MOSAICO (4 fotos pequeñas) -->
     <div class="gallery-mosaic-card">
       <div class="gallery-item mini-item">
         <img src="/assets/Gale_4.jpg" alt="Detalle 1" class="gallery-img">
@@ -286,8 +292,6 @@ if (appContainer) {
         <div class="gallery-overlay"><span>Ver</span></div>
       </div>
     </div>
-
-    <!-- 2º BLOQUE MINI-MOSAICO (4 fotos pequeñas) -->
     <div class="gallery-mosaic-card">
       <div class="gallery-item mini-item">
         <img src="/assets/Gale_8.jpg" alt="Detalle 5" class="gallery-img">
@@ -308,7 +312,6 @@ if (appContainer) {
     </div>
   </div>
 
-  <!-- CRÉDITO SUTIL CON ÍCONO DE INSTAGRAM -->
   <div class="gallery-credits">
     <p>
       <span>📸 Fotos por</span>
@@ -322,7 +325,6 @@ if (appContainer) {
   </div>
 </section>
 
-<!-- SECCIÓN NUEVA Y DEDICADA: NUESTRAS MASCOTAS -->
 <section class="mascots-section reveal-on-scroll" style="padding: 30px 20px; text-align: center;">
   <div style="max-width: 260px; margin: 0 auto;">
     <div class="gallery-item" style="cursor: pointer; width: 100%;">
@@ -337,7 +339,6 @@ if (appContainer) {
   </div>
 </section>
 
-<!-- 3. SECCIÓN CALENDARIO, CUENTA REGRESIVA Y MILO -->
 <section class="date-section reveal-on-scroll">
   <h2 class="section-title">Reserva la Fecha</h2>
   <p class="section-subtitle">Octubre 17 2026</p>
@@ -379,7 +380,6 @@ if (appContainer) {
   </div>
 </section>
 
-<!-- 4. SECCIÓN FECHA Y UBICACIÓN -->
 <section class="event-section reveal-on-scroll">
   <div class="event-container">
     <h2 class="section-title">¿Cuándo y Dónde?</h2>
@@ -434,19 +434,14 @@ if (appContainer) {
   </div>
 </section>
 
-<!-- SECCIÓN ITINERARIO / ORDEN DEL DÍA -->
 <section class="timeline-section reveal-on-scroll">
   <div class="timeline-container">
     <h2 class="section-title">Orden del Día</h2>
     <p class="section-subtitle">Así celebraremos nuestro gran día</p>
 
     <div class="timeline">
-      
-      <!-- ITEM 1: CEREMONIA -->
       <div class="timeline-item">
-        <div class="timeline-marker">
-          <span class="timeline-icon">⛪</span>
-        </div>
+        <div class="timeline-marker"><span class="timeline-icon">⛪</span></div>
         <div class="timeline-content">
           <span class="timeline-time">3:00 PM</span>
           <h3 class="timeline-title">Ceremonia Religiosa</h3>
@@ -454,11 +449,8 @@ if (appContainer) {
         </div>
       </div>
 
-      <!-- ITEM 2: RECEPCIÓN -->
       <div class="timeline-item">
-        <div class="timeline-marker">
-          <span class="timeline-icon">🥂</span>
-        </div>
+        <div class="timeline-marker"><span class="timeline-icon">🥂</span></div>
         <div class="timeline-content">
           <span class="timeline-time">4:30 PM</span>
           <h3 class="timeline-title">Llegada a la Recepción</h3>
@@ -466,11 +458,8 @@ if (appContainer) {
         </div>
       </div>
 
-      <!-- ITEM 3: CENA -->
       <div class="timeline-item">
-        <div class="timeline-marker">
-          <span class="timeline-icon">🍽️</span>
-        </div>
+        <div class="timeline-marker"><span class="timeline-icon">🍽️</span></div>
         <div class="timeline-content">
           <span class="timeline-time">7:00 PM</span>
           <h3 class="timeline-title">Cena & Brindis</h3>
@@ -478,11 +467,8 @@ if (appContainer) {
         </div>
       </div>
 
-      <!-- ITEM 4: FIESTA -->
       <div class="timeline-item">
-        <div class="timeline-marker">
-          <span class="timeline-icon">🪩</span>
-        </div>
+        <div class="timeline-marker"><span class="timeline-icon">🪩</span></div>
         <div class="timeline-content">
           <span class="timeline-time">8:00 PM</span>
           <h3 class="timeline-title">¡A Bailar!</h3>
@@ -490,23 +476,18 @@ if (appContainer) {
         </div>
       </div>
 
-      <!-- ITEM 5: FIN DEL EVENTO -->
       <div class="timeline-item">
-        <div class="timeline-marker">
-          <span class="timeline-icon">✨</span>
-        </div>
+        <div class="timeline-marker"><span class="timeline-icon">✨</span></div>
         <div class="timeline-content">
           <span class="timeline-time">12:00 AM</span>
           <h3 class="timeline-title">Fin del Evento</h3>
           <p class="timeline-desc">Cierre de una noche inolvidable</p>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- 5. SECCIÓN DRESS CODE -->
 <section class="dresscode-section reveal-on-scroll">
   <div class="dresscode-container">
     <h2 class="section-title">Código de Vestimenta</h2>
@@ -559,7 +540,6 @@ if (appContainer) {
   </div>
 </section>
 
-<!-- 6. SECCIÓN CONFIRMACIÓN DE ASISTENCIA (RSVP) -->
 <section id="confirmacion" class="rsvp-section reveal-on-scroll">
   <div class="rsvp-container">
     <div class="rsvp-card">
@@ -571,7 +551,6 @@ if (appContainer) {
 
       <form id="rsvp-form" class="rsvp-form">
         <div id="checklist-container" class="checklist-container">
-          <!-- Cargando participantes con animación -->
           <div class="rsvp-loading">
             <span class="spinner"></span>
             <p>Buscando tus pases de entrada...</p>
@@ -582,7 +561,6 @@ if (appContainer) {
           <span>Confirmar Asistencia</span>
         </button>
 
-        <!-- NOTA DE EVENTO SOLO ADULTOS -->
         <div class="adults-only-note">
           <span class="note-icon">✨</span>
           <p>
@@ -594,7 +572,6 @@ if (appContainer) {
   </div>
 </section>
 
-<!-- 7. SECCIÓN INTERACTIVA (FOTOS & MÚSICA) -->
 <section class="interactive-section reveal-on-scroll">
   <div class="interactive-container">
     <h2 class="section-title">¡Hagamos la Fiesta Juntos!</h2>
@@ -642,7 +619,6 @@ if (appContainer) {
   </div>
 </section>
 
-<!-- 8. SECCIÓN LLUVIA DE SOBRES Y AGRADECIMIENTO -->
 <section class="closing-section reveal-on-scroll">
   <div class="closing-container">
     <div class="closing-card">
@@ -659,224 +635,204 @@ if (appContainer) {
   </div>
 </section>
 
-<!-- LIGHTBOX ÚNICO -->
 <div id="lightbox" class="lightbox">
   <span id="lightbox-close" class="lightbox-close">&times;</span>
   <img id="lightbox-img" class="lightbox-content" src="" alt="Foto ampliada">
 </div>
 `
-}
 
 /* =========================================
-   LÓGICA DE MÚSICA Y APERTURA DE SOBRE
+   INICIALIZACIÓN SEGÚN LA URL
 ========================================= */
-const openingScreen = document.querySelector('.opening-screen')
-const envelope = document.querySelector('.envelope')
-const envelopeWrapper = document.querySelector('.envelope-wrapper')
-const openButton = document.querySelector('.open-button')
+const appContainer = document.querySelector('#app')
 
-const audio = document.getElementById('wedding-music')
-const musicBtn = document.getElementById('music-btn')
-let isPlaying = false
-
-function playMusic() {
-  if (!audio) return
-  audio.play().then(() => {
-    isPlaying = true
-    if (musicBtn) {
-      musicBtn.classList.remove('is-hidden')
-      musicBtn.classList.add('is-playing')
-    }
-  }).catch(() => {
-    if (musicBtn) musicBtn.classList.remove('is-hidden')
-  })
-}
-
-function toggleMusic() {
-  if (!audio) return
-  if (isPlaying) {
-    audio.pause()
-    if (musicBtn) musicBtn.classList.remove('is-playing')
-    isPlaying = false
-  } else {
-    audio.play().then(() => {
-      if (musicBtn) musicBtn.classList.add('is-playing')
-      isPlaying = true
-    })
-  }
-}
-
-if (musicBtn) {
-  musicBtn.addEventListener('click', toggleMusic)
-}
-
-function openInvitation() {
-  if (!openingScreen || openingScreen.classList.contains('is-opening')) return
-
-  playMusic()
-
-  openingScreen.classList.add('is-opening')
-  if (envelope) envelope.classList.add('is-open')
-  if (envelopeWrapper) envelopeWrapper.classList.add('is-open')
-  if (openButton) openButton.classList.add('is-hidden')
-
-  setTimeout(() => {
+if (appContainer) {
+  if (esSoloConfirmacion) {
+    // Si viene con #confirmacion -> Desbloquear cuerpo y mostrar solo RSVP
     document.body.classList.remove('invitation-locked')
     document.body.classList.add('invitation-open')
+    appContainer.innerHTML = htmlSoloConfirmacion
+  } else {
+    // Modo normal -> Bloquear para sobre y cargar invitación completa
+    document.body.classList.add('invitation-locked')
+    appContainer.innerHTML = htmlInvitacionCompleta
+    inicializarEventosInvitacionCompleta()
+  }
+}
+
+/* =========================================
+   LÓGICA SOLO PARA LA INVITACIÓN COMPLETA
+========================================= */
+function inicializarEventosInvitacionCompleta() {
+  const openingScreen = document.querySelector('.opening-screen')
+  const envelope = document.querySelector('.envelope')
+  const envelopeWrapper = document.querySelector('.envelope-wrapper')
+  const openButton = document.querySelector('.open-button')
+
+  const audio = document.getElementById('wedding-music')
+  const musicBtn = document.getElementById('music-btn')
+  let isPlaying = false
+
+  function playMusic() {
+    if (!audio) return
+    audio.play().then(() => {
+      isPlaying = true
+      if (musicBtn) {
+        musicBtn.classList.remove('is-hidden')
+        musicBtn.classList.add('is-playing')
+      }
+    }).catch(() => {
+      if (musicBtn) musicBtn.classList.remove('is-hidden')
+    })
+  }
+
+  function toggleMusic() {
+    if (!audio) return
+    if (isPlaying) {
+      audio.pause()
+      if (musicBtn) musicBtn.classList.remove('is-playing')
+      isPlaying = false
+    } else {
+      audio.play().then(() => {
+        if (musicBtn) musicBtn.classList.add('is-playing')
+        isPlaying = true
+      })
+    }
+  }
+
+  if (musicBtn) musicBtn.addEventListener('click', toggleMusic)
+
+  function openInvitation() {
+    if (!openingScreen || openingScreen.classList.contains('is-opening')) return
+
+    playMusic()
+
+    openingScreen.classList.add('is-opening')
+    if (envelope) envelope.classList.add('is-open')
+    if (envelopeWrapper) envelopeWrapper.classList.add('is-open')
+    if (openButton) openButton.classList.add('is-hidden')
 
     setTimeout(() => {
-      openingScreen.style.display = 'none'
-      initScrollAnimations()
+      document.body.classList.remove('invitation-locked')
+      document.body.classList.add('invitation-open')
+
+      setTimeout(() => {
+        openingScreen.style.display = 'none'
+        initScrollAnimations()
+      }, 600)
     }, 600)
-  }, 600)
-}
-
-if (openButton) openButton.addEventListener('click', openInvitation)
-if (envelope) envelope.addEventListener('click', openInvitation)
-
-/* =========================================
-   CUENTA REGRESIVA
-========================================= */
-const weddingDate = new Date('2026-10-17T15:00:00').getTime()
-
-function updateCountdown() {
-  const now = new Date().getTime()
-  const diff = weddingDate - now
-
-  const grid = document.querySelector('.countdown-grid')
-  if (diff <= 0) {
-    if (grid) grid.innerHTML = '<p class="cd-finished">¡Hoy es nuestro gran día!</p>'
-    return
   }
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24))
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-  const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+  if (openButton) openButton.addEventListener('click', openInvitation)
+  if (envelope) envelope.addEventListener('click', openInvitation)
 
-  const elDays = document.getElementById('cd-days')
-  const elHours = document.getElementById('cd-hours')
-  const elMinutes = document.getElementById('cd-minutes')
-  const elSeconds = document.getElementById('cd-seconds')
+  // Cuenta regresiva
+  const weddingDate = new Date('2026-10-17T15:00:00').getTime()
+  function updateCountdown() {
+    const now = new Date().getTime()
+    const diff = weddingDate - now
 
-  if (elDays) elDays.innerText = days < 10 ? `0${days}` : days
-  if (elHours) elHours.innerText = hours < 10 ? `0${hours}` : hours
-  if (elMinutes) elMinutes.innerText = minutes < 10 ? `0${minutes}` : minutes
-  if (elSeconds) elSeconds.innerText = seconds < 10 ? `0${seconds}` : seconds
-}
+    const grid = document.querySelector('.countdown-grid')
+    if (diff <= 0) {
+      if (grid) grid.innerHTML = '<p class="cd-finished">¡Hoy es nuestro gran día!</p>'
+      return
+    }
 
-setInterval(updateCountdown, 1000)
-updateCountdown()
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000)
 
-/* ANIMACIÓN DE DESVANECIMIENTO (FADE-IN EFFECT) */
-function initScrollAnimations() {
-  const reveals = document.querySelectorAll('.reveal-on-scroll')
+    const elDays = document.getElementById('cd-days')
+    const elHours = document.getElementById('cd-hours')
+    const elMinutes = document.getElementById('cd-minutes')
+    const elSeconds = document.getElementById('cd-seconds')
 
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px 0px -50px 0px',
-    threshold: 0.05
+    if (elDays) elDays.innerText = days < 10 ? `0${days}` : days
+    if (elHours) elHours.innerText = hours < 10 ? `0${hours}` : hours
+    if (elMinutes) elMinutes.innerText = minutes < 10 ? `0${minutes}` : minutes
+    if (elSeconds) elSeconds.innerText = seconds < 10 ? `0${seconds}` : seconds
+  }
+  setInterval(updateCountdown, 1000)
+  updateCountdown()
+
+  // Scroll Animations
+  function initScrollAnimations() {
+    const reveals = document.querySelectorAll('.reveal-on-scroll')
+    const observerOptions = { root: null, rootMargin: '0px 0px -50px 0px', threshold: 0.05 }
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible')
+          obs.unobserve(entry.target)
+        }
+      })
+    }, observerOptions)
+
+    reveals.forEach(el => observer.observe(el))
   }
 
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible')
-        obs.unobserve(entry.target)
+  // Lightbox
+  const lightbox = document.getElementById('lightbox')
+  const lightboxImg = document.getElementById('lightbox-img')
+  const lightboxClose = document.getElementById('lightbox-close')
+
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const img = item.querySelector('.gallery-img')
+      if (img && lightbox && lightboxImg) {
+        lightboxImg.src = img.src
+        lightboxImg.alt = img.alt
+        lightbox.classList.add('is-active')
+        document.body.style.overflow = 'hidden'
       }
     })
-  }, observerOptions)
-
-  reveals.forEach(el => observer.observe(el))
-}
-
-/* =========================================
-   LIGHTBOX (GALERÍA)
-========================================= */
-const lightbox = document.getElementById('lightbox')
-const lightboxImg = document.getElementById('lightbox-img')
-const lightboxClose = document.getElementById('lightbox-close')
-
-document.querySelectorAll('.gallery-item').forEach(item => {
-  item.addEventListener('click', () => {
-    const img = item.querySelector('.gallery-img')
-    if (img && lightbox && lightboxImg) {
-      lightboxImg.src = img.src
-      lightboxImg.alt = img.alt
-      lightbox.classList.add('is-active')
-      document.body.style.overflow = 'hidden'
-    }
   })
-})
 
-function closeLightbox() {
-  if (lightbox) {
-    lightbox.classList.remove('is-active')
-    document.body.style.overflow = ''
+  function closeLightbox() {
+    if (lightbox) {
+      lightbox.classList.remove('is-active')
+      document.body.style.overflow = ''
+    }
+  }
+
+  if (lightboxClose) lightboxClose.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); })
+  if (lightbox) lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); })
+
+  // Formulario Música
+  const musicForm = document.getElementById('music-form')
+  if (musicForm) {
+    musicForm.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      const submitBtn = musicForm.querySelector('.submit-btn')
+      const originalText = submitBtn.innerHTML
+      const artist = document.getElementById('artist').value
+      const song = document.getElementById('song').value
+      const link = document.getElementById('link').value
+
+      submitBtn.disabled = true
+      submitBtn.innerHTML = '<span>Enviando...</span>'
+
+      try {
+        const { error } = await supabase.from('canciones').insert([{ artista: artist, cancion: song, link: link }])
+        if (error) throw error
+        alert(`🎶 ¡Genial! Guardamos "${song}" de ${artist} en la lista de peticiones.`)
+        musicForm.reset()
+      } catch (err) {
+        console.error('Error al guardar canción:', err)
+        alert('Hubo un problema al enviar la canción. Inténtalo de nuevo.')
+      } finally {
+        submitBtn.disabled = false
+        submitBtn.innerHTML = originalText
+      }
+    })
   }
 }
 
-if (lightboxClose) {
-  lightboxClose.addEventListener('click', (e) => {
-    e.stopPropagation()
-    closeLightbox()
-  })
-}
-
-if (lightbox) {
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-      closeLightbox()
-    }
-  })
-}
-
 /* =========================================
-   FORMULARIO MÚSICA (CONEXIÓN SUPABASE)
+   LÓGICA COMÚN: CONEXIÓN SUPABASE (RSVP)
 ========================================= */
-const musicForm = document.getElementById('music-form')
-
-if (musicForm) {
-  musicForm.addEventListener('submit', async (e) => {
-    e.preventDefault()
-
-    const submitBtn = musicForm.querySelector('.submit-btn')
-    const originalText = submitBtn.innerHTML
-
-    const artist = document.getElementById('artist').value
-    const song = document.getElementById('song').value
-    const link = document.getElementById('link').value
-
-    submitBtn.disabled = true
-    submitBtn.innerHTML = '<span>Enviando...</span>'
-
-    try {
-      const { error } = await supabase
-        .from('canciones')
-        .insert([
-          { artista: artist, cancion: song, link: link }
-        ])
-
-      if (error) throw error
-
-      alert(`🎶 ¡Genial! Guardamos "${song}" de ${artist} en la lista de peticiones.`)
-      musicForm.reset()
-    } catch (err) {
-      console.error('Error al guardar canción:', err)
-      alert('Hubo un problema al enviar la canción. Inténtalo de nuevo.')
-    } finally {
-      submitBtn.disabled = false
-      submitBtn.innerHTML = originalText
-    }
-  })
-}
-
-/* =========================================
-   INTEGRACIÓN SUPABASE (RSVP & SOBRE)
-========================================= */
-const params = new URLSearchParams(window.location.search)
-const familiaSlug = params.get('f')
-
 async function cargarDatosInvitacion() {
   const container = document.getElementById('checklist-container')
 
@@ -884,7 +840,7 @@ async function cargarDatosInvitacion() {
     if (container) {
       container.innerHTML = `
         <div class="rsvp-alert info">
-          ℹ️ Estás viendo una vista previa de la invitación. Para confirmar asistencia, usa tu enlace personalizado.
+          ℹ️ Estás viendo una vista previa. Para confirmar asistencia, usa tu enlace personalizado.
         </div>
       `
     }
@@ -915,17 +871,6 @@ async function cargarDatosInvitacion() {
   }
 
   renderizarChecklistRSVP(familia.invitados)
-
-  if (window.location.hash === '#confirmacion') {
-    openInvitation()
-
-    setTimeout(() => {
-      const confirmSection = document.getElementById('confirmacion')
-      if (confirmSection) {
-        confirmSection.scrollIntoView({ behavior: 'smooth' })
-      }
-    }, 700)
-  }
 }
 
 function renderizarChecklistRSVP(listaInvitados) {
@@ -977,11 +922,12 @@ function renderizarChecklistRSVP(listaInvitados) {
   })
 }
 
-const rsvpForm = document.getElementById('rsvp-form')
-if (rsvpForm) {
-  rsvpForm.addEventListener('submit', async (e) => {
+// Configurar evento del formulario RSVP dinámicamente
+document.addEventListener('submit', async (e) => {
+  if (e.target && e.target.id === 'rsvp-form') {
     e.preventDefault()
 
+    const rsvpForm = e.target
     const submitBtn = rsvpForm.querySelector('.submit-btn')
     const originalText = submitBtn.innerHTML
     
@@ -1009,8 +955,8 @@ if (rsvpForm) {
       submitBtn.disabled = false
       submitBtn.innerHTML = originalText
     }
-  })
-}
+  }
+})
 
-// Ejecución directa al cargar la app
+// Cargar datos del invitado al iniciar
 cargarDatosInvitacion()
