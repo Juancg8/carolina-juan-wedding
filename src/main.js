@@ -6,7 +6,7 @@ import { supabase } from './supabaseClient.js'
 ========================================= */
 const params = new URLSearchParams(window.location.search)
 const familiaSlug = params.get('f')
-const esSoloConfirmacion = window.location.hash === '#confirmacion'
+// const esSoloConfirmacion = window.location.hash === '#confirmacion'
 
 /* =========================================
    PLANTILLAS HTML
@@ -540,37 +540,6 @@ const htmlInvitacionCompleta = `
   </div>
 </section>
 
-// <section id="confirmacion" class="rsvp-section reveal-on-scroll">
-//   <div class="rsvp-container">
-//     <div class="rsvp-card">
-//       <div class="rsvp-header">
-//         <div class="rsvp-icon">✉️</div>
-//         <h2 class="section-title">Confirmación de Asistencia</h2>
-//         <p class="section-subtitle">Por favor confirma quiénes nos acompañarán este día:</p>
-//       </div>
-
-//       <form id="rsvp-form" class="rsvp-form">
-//         <div id="checklist-container" class="checklist-container">
-//           <div class="rsvp-loading">
-//             <span class="spinner"></span>
-//             <p>Buscando tus pases de entrada...</p>
-//           </div>
-//         </div>
-
-//         <button type="submit" class="interactive-btn submit-btn rsvp-submit">
-//           <span>Confirmar Asistencia</span>
-//         </button>
-
-//         <div class="adults-only-note">
-//           <span class="note-icon">✨</span>
-//           <p>
-//             Queremos que este día sea un momento de descanso y fiesta para todos. Por esta razón, hemos planeado una celebración <strong>exclusivamente para adultos</strong>. ¡Agradecemos de corazón su comprensión!
-//           </p>
-//         </div>
-//       </form>
-//     </div>
-//   </div>
-// </section>
 
 <section class="interactive-section reveal-on-scroll">
   <div class="interactive-container">
@@ -646,19 +615,19 @@ const htmlInvitacionCompleta = `
 ========================================= */
 const appContainer = document.querySelector('#app')
 
-if (appContainer) {
-  if (esSoloConfirmacion) {
-    // Si viene con #confirmacion -> Desbloquear cuerpo y mostrar solo RSVP
-    document.body.classList.remove('invitation-locked')
-    document.body.classList.add('invitation-open')
-    appContainer.innerHTML = htmlSoloConfirmacion
-  } else {
-    // Modo normal -> Bloquear para sobre y cargar invitación completa
-    document.body.classList.add('invitation-locked')
-    appContainer.innerHTML = htmlInvitacionCompleta
-    inicializarEventosInvitacionCompleta()
-  }
-}
+// if (appContainer) {
+//   if (esSoloConfirmacion) {
+//     // Si viene con #confirmacion -> Desbloquear cuerpo y mostrar solo RSVP
+//     document.body.classList.remove('invitation-locked')
+//     document.body.classList.add('invitation-open')
+//     appContainer.innerHTML = htmlSoloConfirmacion
+//   } else {
+//     // Modo normal -> Bloquear para sobre y cargar invitación completa
+//     document.body.classList.add('invitation-locked')
+//     appContainer.innerHTML = htmlInvitacionCompleta
+//     inicializarEventosInvitacionCompleta()
+//   }
+// }
 
 /* =========================================
    LÓGICA SOLO PARA LA INVITACIÓN COMPLETA
