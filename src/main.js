@@ -133,52 +133,52 @@ const calendarSvg = `
 </svg>
 `
 
-// 2. VISTA EXCLUSIVA SOLO CONFIRMACIÓN
-const htmlSoloConfirmacion = `
-<main class="only-rsvp-page" style="min-height: 100vh; padding: 40px 15px; display: flex; align-items: center; justify-content: center;">
-  <section id="confirmacion" class="rsvp-section is-visible" style="width: 100%; max-width: 600px; margin: 0 auto;">
-    <div class="rsvp-container">
-      <div class="rsvp-card">
-        <div class="rsvp-header" style="text-align: center; margin-bottom: 25px;">
-          <div class="rsvp-icon" style="font-size: 2.5rem; margin-bottom: 10px;">✉️</div>
-          <h2 class="section-title">Confirmación de Asistencia</h2>
-          <p class="section-subtitle" style="margin-top: 8px;">Por favor confirma quiénes nos acompañarán este día:</p>
-          <div class="guest-envelope-title" style="margin-top: 15px; font-size: 1.2rem; color: #ad8750; font-weight: 600;">
-            <span id="envelope-guest-name"></span>
-          </div>
-        </div>
+// // 2. VISTA EXCLUSIVA SOLO CONFIRMACIÓN
+// const htmlSoloConfirmacion = `
+// <main class="only-rsvp-page" style="min-height: 100vh; padding: 40px 15px; display: flex; align-items: center; justify-content: center;">
+//   <section id="confirmacion" class="rsvp-section is-visible" style="width: 100%; max-width: 600px; margin: 0 auto;">
+//     <div class="rsvp-container">
+//       <div class="rsvp-card">
+//         <div class="rsvp-header" style="text-align: center; margin-bottom: 25px;">
+//           <div class="rsvp-icon" style="font-size: 2.5rem; margin-bottom: 10px;">✉️</div>
+//           <h2 class="section-title">Confirmación de Asistencia</h2>
+//           <p class="section-subtitle" style="margin-top: 8px;">Por favor confirma quiénes nos acompañarán este día:</p>
+//           <div class="guest-envelope-title" style="margin-top: 15px; font-size: 1.2rem; color: #ad8750; font-weight: 600;">
+//             <span id="envelope-guest-name"></span>
+//           </div>
+//         </div>
 
-        <form id="rsvp-form" class="rsvp-form">
-          <div id="checklist-container" class="checklist-container">
-            <div class="rsvp-loading" style="text-align: center; padding: 20px;">
-              <span class="spinner"></span>
-              <p>Cargando tus pases de entrada...</p>
-            </div>
-          </div>
+//         <form id="rsvp-form" class="rsvp-form">
+//           <div id="checklist-container" class="checklist-container">
+//             <div class="rsvp-loading" style="text-align: center; padding: 20px;">
+//               <span class="spinner"></span>
+//               <p>Cargando tus pases de entrada...</p>
+//             </div>
+//           </div>
 
-          <button type="submit" class="interactive-btn submit-btn rsvp-submit" style="margin-top: 25px;">
-            <span>Confirmar Asistencia</span>
-          </button>
+//           <button type="submit" class="interactive-btn submit-btn rsvp-submit" style="margin-top: 25px;">
+//             <span>Confirmar Asistencia</span>
+//           </button>
 
-          <div class="adults-only-note" style="margin-top: 25px; text-align: center; font-size: 0.9rem; color: #6b7280;">
-            <span class="note-icon">✨</span>
-            <p>
-              Queremos que este día sea un momento de descanso y fiesta para todos. Por esta razón, hemos planeado una celebración <strong>exclusivamente para adultos</strong>. ¡Agradecemos de corazón su comprensión!
-            </p>
-          </div>
-        </form>
+//           <div class="adults-only-note" style="margin-top: 25px; text-align: center; font-size: 0.9rem; color: #6b7280;">
+//             <span class="note-icon">✨</span>
+//             <p>
+//               Queremos que este día sea un momento de descanso y fiesta para todos. Por esta razón, hemos planeado una celebración <strong>exclusivamente para adultos</strong>. ¡Agradecemos de corazón su comprensión!
+//             </p>
+//           </div>
+//         </form>
 
-        <!-- ENLACE OPCIONAL PARA VER INVITACIÓN COMPLETA -->
-        <div style="text-align: center; margin-top: 20px;">
-          <a href="${window.location.pathname}${window.location.search}" style="color: #ad8750; text-decoration: underline; font-size: 0.9rem;">
-            Ver tarjeta de invitación completa 💌
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-`
+//         <!-- ENLACE OPCIONAL PARA VER INVITACIÓN COMPLETA -->
+//         <div style="text-align: center; margin-top: 20px;">
+//           <a href="${window.location.pathname}${window.location.search}" style="color: #ad8750; text-decoration: underline; font-size: 0.9rem;">
+//             Ver tarjeta de invitación completa 💌
+//           </a>
+//         </div>
+//       </div>
+//     </div>
+//   </section>
+// </main>
+// `
 
 // 3. VISTA COMPLETA (INCLUYE TODAS LAS SECCIONES)
 const htmlInvitacionCompleta = `
@@ -540,37 +540,37 @@ const htmlInvitacionCompleta = `
   </div>
 </section>
 
-<section id="confirmacion" class="rsvp-section reveal-on-scroll">
-  <div class="rsvp-container">
-    <div class="rsvp-card">
-      <div class="rsvp-header">
-        <div class="rsvp-icon">✉️</div>
-        <h2 class="section-title">Confirmación de Asistencia</h2>
-        <p class="section-subtitle">Por favor confirma quiénes nos acompañarán este día:</p>
-      </div>
+// <section id="confirmacion" class="rsvp-section reveal-on-scroll">
+//   <div class="rsvp-container">
+//     <div class="rsvp-card">
+//       <div class="rsvp-header">
+//         <div class="rsvp-icon">✉️</div>
+//         <h2 class="section-title">Confirmación de Asistencia</h2>
+//         <p class="section-subtitle">Por favor confirma quiénes nos acompañarán este día:</p>
+//       </div>
 
-      <form id="rsvp-form" class="rsvp-form">
-        <div id="checklist-container" class="checklist-container">
-          <div class="rsvp-loading">
-            <span class="spinner"></span>
-            <p>Buscando tus pases de entrada...</p>
-          </div>
-        </div>
+//       <form id="rsvp-form" class="rsvp-form">
+//         <div id="checklist-container" class="checklist-container">
+//           <div class="rsvp-loading">
+//             <span class="spinner"></span>
+//             <p>Buscando tus pases de entrada...</p>
+//           </div>
+//         </div>
 
-        <button type="submit" class="interactive-btn submit-btn rsvp-submit">
-          <span>Confirmar Asistencia</span>
-        </button>
+//         <button type="submit" class="interactive-btn submit-btn rsvp-submit">
+//           <span>Confirmar Asistencia</span>
+//         </button>
 
-        <div class="adults-only-note">
-          <span class="note-icon">✨</span>
-          <p>
-            Queremos que este día sea un momento de descanso y fiesta para todos. Por esta razón, hemos planeado una celebración <strong>exclusivamente para adultos</strong>. ¡Agradecemos de corazón su comprensión!
-          </p>
-        </div>
-      </form>
-    </div>
-  </div>
-</section>
+//         <div class="adults-only-note">
+//           <span class="note-icon">✨</span>
+//           <p>
+//             Queremos que este día sea un momento de descanso y fiesta para todos. Por esta razón, hemos planeado una celebración <strong>exclusivamente para adultos</strong>. ¡Agradecemos de corazón su comprensión!
+//           </p>
+//         </div>
+//       </form>
+//     </div>
+//   </div>
+// </section>
 
 <section class="interactive-section reveal-on-scroll">
   <div class="interactive-container">
