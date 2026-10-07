@@ -6,7 +6,7 @@ import { supabase } from './supabaseClient.js'
 ========================================= */
 const params = new URLSearchParams(window.location.search)
 const familiaSlug = params.get('f')
-// const esSoloConfirmacion = window.location.hash === '#confirmacion'
+const esSoloConfirmacion = window.location.hash === '#confirmacion'
 
 /* =========================================
    PLANTILLAS HTML
@@ -133,54 +133,33 @@ const calendarSvg = `
 </svg>
 `
 
-// // 2. VISTA EXCLUSIVA SOLO CONFIRMACIÓN
-// const htmlSoloConfirmacion = `
-// <main class="only-rsvp-page" style="min-height: 100vh; padding: 40px 15px; display: flex; align-items: center; justify-content: center;">
-//   <section id="confirmacion" class="rsvp-section is-visible" style="width: 100%; max-width: 600px; margin: 0 auto;">
-//     <div class="rsvp-container">
-//       <div class="rsvp-card">
-//         <div class="rsvp-header" style="text-align: center; margin-bottom: 25px;">
-//           <div class="rsvp-icon" style="font-size: 2.5rem; margin-bottom: 10px;">✉️</div>
-//           <h2 class="section-title">Confirmación de Asistencia</h2>
-//           <p class="section-subtitle" style="margin-top: 8px;">Por favor confirma quiénes nos acompañarán este día:</p>
-//           <div class="guest-envelope-title" style="margin-top: 15px; font-size: 1.2rem; color: #ad8750; font-weight: 600;">
-//             <span id="envelope-guest-name"></span>
-//           </div>
-//         </div>
+// 2. VISTA EXCLUSIVA SOLO CONFIRMACIÓN (CERRADA)
+const htmlSoloConfirmacion = `
+<main class="only-rsvp-page" style="min-height: 100vh; padding: 40px 15px; display: flex; align-items: center; justify-content: center;">
+  <section id="confirmacion" class="rsvp-section is-visible" style="width: 100%; max-width: 600px; margin: 0 auto;">
+    <div class="rsvp-container">
+      <div class="rsvp-card" style="text-align: center; padding: 40px 20px;">
+        <div class="rsvp-icon" style="font-size: 3rem; margin-bottom: 15px;">⏳</div>
+        <h2 class="section-title">Confirmación Finalizada</h2>
+        <p class="section-subtitle" style="margin-top: 15px; font-size: 1.1rem; line-height: 1.6; color: #4b5563;">
+          El plazo límite para confirmar asistencia ha expirado. Hemos cerrado la lista para finalizar la organización de logística y banquetes.
+        </p>
+        <p style="margin-top: 15px; font-weight: 600; color: #ad8750;">
+          ¡Nos vemos muy pronto para celebrar juntos! 🥂✨
+        </p>
+        
+        <div style="text-align: center; margin-top: 30px;">
+          <a href="${window.location.pathname}${window.location.search}" class="interactive-btn" style="display: inline-block; text-decoration: none; padding: 12px 24px;">
+            Ver tarjeta de invitación 💌
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+`
 
-//         <form id="rsvp-form" class="rsvp-form">
-//           <div id="checklist-container" class="checklist-container">
-//             <div class="rsvp-loading" style="text-align: center; padding: 20px;">
-//               <span class="spinner"></span>
-//               <p>Cargando tus pases de entrada...</p>
-//             </div>
-//           </div>
-
-//           <button type="submit" class="interactive-btn submit-btn rsvp-submit" style="margin-top: 25px;">
-//             <span>Confirmar Asistencia</span>
-//           </button>
-
-//           <div class="adults-only-note" style="margin-top: 25px; text-align: center; font-size: 0.9rem; color: #6b7280;">
-//             <span class="note-icon">✨</span>
-//             <p>
-//               Queremos que este día sea un momento de descanso y fiesta para todos. Por esta razón, hemos planeado una celebración <strong>exclusivamente para adultos</strong>. ¡Agradecemos de corazón su comprensión!
-//             </p>
-//           </div>
-//         </form>
-
-//         <!-- ENLACE OPCIONAL PARA VER INVITACIÓN COMPLETA -->
-//         <div style="text-align: center; margin-top: 20px;">
-//           <a href="${window.location.pathname}${window.location.search}" style="color: #ad8750; text-decoration: underline; font-size: 0.9rem;">
-//             Ver tarjeta de invitación completa 💌
-//           </a>
-//         </div>
-//       </div>
-//     </div>
-//   </section>
-// </main>
-// `
-
-// 3. VISTA COMPLETA (INCLUYE TODAS LAS SECCIONES)
+// 3. VISTA COMPLETA (SECCIÓN DE CONFIRMACIÓN OCURTA Y COMENTADA)
 const htmlInvitacionCompleta = `
 <audio id="wedding-music" loop src="/assets/cancion.mp3"></audio>
 
@@ -540,6 +519,42 @@ const htmlInvitacionCompleta = `
   </div>
 </section>
 
+<!-- =========================================
+     SECCIÓN DE CONFIRMACIÓN DESHABILITADA
+========================================= -->
+<!--
+<section id="confirmacion" class="rsvp-section reveal-on-scroll">
+  <div class="rsvp-container">
+    <div class="rsvp-card">
+      <div class="rsvp-header">
+        <div class="rsvp-icon">✉️️</div>
+        <h2 class="section-title">Confirmación de Asistencia</h2>
+        <p class="section-subtitle">Por favor confirma quiénes nos acompañarán este día:</p>
+      </div>
+
+      <form id="rsvp-form" class="rsvp-form">
+        <div id="checklist-container" class="checklist-container">
+          <div class="rsvp-loading">
+            <span class="spinner"></span>
+            <p>Buscando tus pases de entrada...</p>
+          </div>
+        </div>
+
+        <button type="submit" class="interactive-btn submit-btn rsvp-submit">
+          <span>Confirmar Asistencia</span>
+        </button>
+
+        <div class="adults-only-note">
+          <span class="note-icon">✨</span>
+          <p>
+            Queremos que este día sea un momento de descanso y fiesta para todos. Por esta razón, hemos planeado una celebración <strong>exclusivamente para adultos</strong>. ¡Agradecemos de corazón su comprensión!
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+-->
 
 <section class="interactive-section reveal-on-scroll">
   <div class="interactive-container">
@@ -615,19 +630,19 @@ const htmlInvitacionCompleta = `
 ========================================= */
 const appContainer = document.querySelector('#app')
 
-// if (appContainer) {
-//   if (esSoloConfirmacion) {
-//     // Si viene con #confirmacion -> Desbloquear cuerpo y mostrar solo RSVP
-//     document.body.classList.remove('invitation-locked')
-//     document.body.classList.add('invitation-open')
-//     appContainer.innerHTML = htmlSoloConfirmacion
-//   } else {
-//     // Modo normal -> Bloquear para sobre y cargar invitación completa
-//     document.body.classList.add('invitation-locked')
-//     appContainer.innerHTML = htmlInvitacionCompleta
-//     inicializarEventosInvitacionCompleta()
-//   }
-// }
+if (appContainer) {
+  if (esSoloConfirmacion) {
+    // Si entra por #confirmacion -> Mostrar aviso de plazo finalizado
+    document.body.classList.remove('invitation-locked')
+    document.body.classList.add('invitation-open')
+    appContainer.innerHTML = htmlSoloConfirmacion
+  } else {
+    // Modo normal -> Bloquear para sobre y cargar invitación completa sin módulo RSVP
+    document.body.classList.add('invitation-locked')
+    appContainer.innerHTML = htmlInvitacionCompleta
+    inicializarEventosInvitacionCompleta()
+  }
+}
 
 /* =========================================
    LÓGICA SOLO PARA LA INVITACIÓN COMPLETA
@@ -800,132 +815,33 @@ function inicializarEventosInvitacionCompleta() {
 }
 
 /* =========================================
-   LÓGICA COMÚN: CONEXIÓN SUPABASE (RSVP)
+   LÓGICA SUPABASE DE CONFIRMACIÓN DESHABILITADA
 ========================================= */
 async function cargarDatosInvitacion() {
-  const container = document.getElementById('checklist-container')
+  if (!familiaSlug) return
 
-  if (!familiaSlug) {
-    if (container) {
-      container.innerHTML = `
-        <div class="rsvp-alert info">
-          ℹ️ Estás viendo una vista previa. Para confirmar asistencia, usa tu enlace personalizado.
-        </div>
-      `
-    }
-    return
-  }
-
-  const { data: familia, error } = await supabase
+  // Solo se obtiene el nombre de la familia para personalizar el sobre
+  const { data: familia } = await supabase
     .from('familias')
-    .select('id, nombre_sobre, invitados(id, nombre_completo, asiste)')
+    .select('nombre_sobre')
     .eq('slug', familiaSlug)
     .single()
 
-  if (error || !familia) {
-    console.error('No se encontró información para esta familia:', error)
-    if (container) {
-      container.innerHTML = `
-        <div class="rsvp-alert error">
-          ⚠️ No pudimos encontrar tu lista de pases. Por favor verifica el enlace enviado.
-        </div>
-      `
+  if (familia) {
+    const envelopeLabel = document.getElementById('envelope-guest-name')
+    if (envelopeLabel) {
+      envelopeLabel.innerText = familia.nombre_sobre
     }
-    return
   }
-
-  const envelopeLabel = document.getElementById('envelope-guest-name')
-  if (envelopeLabel) {
-    envelopeLabel.innerText = familia.nombre_sobre
-  }
-
-  renderizarChecklistRSVP(familia.invitados)
 }
 
-function renderizarChecklistRSVP(listaInvitados) {
-  const container = document.getElementById('checklist-container')
-  if (!container) return
-
-  container.innerHTML = ''
-
-  if (!listaInvitados || listaInvitados.length === 0) {
-    container.innerHTML = '<p class="rsvp-empty">No hay invitados registrados bajo esta familia.</p>'
-    return
-  }
-
-  listaInvitados.forEach(invitado => {
-    const label = document.createElement('label')
-    label.className = 'rsvp-checkbox-card'
-
-    const isChecked = invitado.asiste === true ? 'checked' : ''
-
-    label.innerHTML = `
-      <div class="checkbox-wrapper">
-        <input type="checkbox" data-id="${invitado.id}" ${isChecked} />
-        <span class="custom-checkbox"></span>
-      </div>
-      <div class="guest-info">
-        <span class="guest-fullname">${invitado.nombre_completo}</span>
-        <span class="guest-status">${invitado.asiste ? 'Asistencia confirmada' : 'Pendiente por confirmar'}</span>
-      </div>
-    `
-
-    const checkbox = label.querySelector('input')
-    const statusText = label.querySelector('.guest-status')
-
-    checkbox.addEventListener('change', (e) => {
-      if (e.target.checked) {
-        label.classList.add('selected')
-        statusText.innerText = '¡Confirmado!'
-      } else {
-        label.classList.remove('selected')
-        statusText.innerText = 'No asistirá'
-      }
-    })
-
-    if (invitado.asiste) {
-      label.classList.add('selected')
-    }
-
-    container.appendChild(label)
-  })
-}
-
-// Configurar evento del formulario RSVP dinámicamente
-document.addEventListener('submit', async (e) => {
+// Interceptar cualquier intento de envío de confirmación
+document.addEventListener('submit', (e) => {
   if (e.target && e.target.id === 'rsvp-form') {
     e.preventDefault()
-
-    const rsvpForm = e.target
-    const submitBtn = rsvpForm.querySelector('.submit-btn')
-    const originalText = submitBtn.innerHTML
-    
-    submitBtn.disabled = true
-    submitBtn.innerHTML = '<span>Guardando...</span>'
-
-    try {
-      const checkboxes = document.querySelectorAll('#checklist-container input[type="checkbox"]')
-      
-      for (const cb of checkboxes) {
-        const invitadoId = cb.getAttribute('data-id')
-        const estaConfirmado = cb.checked
-
-        await supabase
-          .from('invitados')
-          .update({ asiste: estaConfirmado })
-          .eq('id', invitadoId)
-      }
-
-      alert('✨ ¡Muchas gracias! Tu respuesta ha sido guardada exitosamente.')
-    } catch (err) {
-      console.error(err)
-      alert('Hubo un error al guardar tu confirmación. Intenta de nuevo.')
-    } finally {
-      submitBtn.disabled = false
-      submitBtn.innerHTML = originalText
-    }
+    alert('El plazo de confirmación ha finalizado.')
   }
 })
 
-// Cargar datos del invitado al iniciar
+// Cargar únicamente datos estéticos del sobre (si aplica)
 cargarDatosInvitacion()
